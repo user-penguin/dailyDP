@@ -13,6 +13,8 @@
 
     <modules>
         <module>ui</module>
+        <module>administration</module>
+        <module>management</module>
     </modules>
 
 
