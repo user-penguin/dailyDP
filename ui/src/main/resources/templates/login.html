@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Registration</title>
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+        <link type="text/css" rel="stylesheet" href="/css/mystyle.css" th:href="@{css/mystyle.css}" />
+    </head>
+    <p>
+    <div align="center"><img src="https://s.tcdn.co/093/31b/09331bef-582c-347a-b01f-6932bbb08f6a/10.png" width="80" height="80"/><h1>Вёрстка от бога.prod<br>Welcome </h1></div>
+
+    <div id="wrapper">
+        <div class="alert alert-danger" th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div class="alert alert-warning" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form id="signin" th:action="@{/login}" method="post">
+            <input id="user" type="text" name="username" placeholder="username"/>
+            <input id="pass" type="password" name="password" placeholder="password"/>
+            <button type="submit" >&#xf0da;</button>
+        </form>
+     </div>
+    </body>
+</html>
