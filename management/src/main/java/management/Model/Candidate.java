@@ -8,7 +8,7 @@ public class Candidate {
     private String phone;
     private String email;
     private String skills;
-
+    private int vacancyId;
     private int statusId;
     private int resumeId;
 
@@ -17,7 +17,7 @@ public class Candidate {
 
     public Candidate(int canId, String firstName, String lastName,
                      String secondName, String phone, String email,
-                     String skills,  int statusId,
+                     String skills,  int vacancyId, int statusId,
                      int resumeId)
     {
         this.canId = canId;
@@ -27,7 +27,7 @@ public class Candidate {
         this.phone = phone;
         this.email = email;
         this.skills = skills;
-
+        this.vacancyId = vacancyId;
         this.statusId = statusId;
         this.resumeId = resumeId;
     }
@@ -103,4 +103,8 @@ public class Candidate {
     public void setResumeId(int resumeId) {
         this.resumeId = resumeId;
     }
+
+    public int getVacancyId() { return vacancyId; }
+
+    public void setVacancyId(int vacancyId) { this.vacancyId = vacancyId; }
 }
