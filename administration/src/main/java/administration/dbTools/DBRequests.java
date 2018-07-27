@@ -16,6 +16,8 @@ public class DBRequests {
     public boolean createDBConnect(String user, String password) {
         try {
             connection = DriverManager.getConnection(url, user, password);
+
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -37,10 +39,10 @@ public class DBRequests {
         JSONArray JSONArrayOfEmployee = new JSONArray();
         try {
             statement = connection.createStatement();
-            String query = "SELECT employee.id, employee.last_name, employee.first_name, " +
+            String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
                     "employee.second_name, account_data.id_type_account\n" +
                     "FROM employee, account_data\n" +
-                    "WHERE employee.id = account_data.id;";
+                    "WHERE employee.id_employee = account_data.id_account_data;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
@@ -68,11 +70,11 @@ public class DBRequests {
         JSONArray JSONArrayOfManagers = new JSONArray();
         try {
             statement = connection.createStatement();
-            String query = "SELECT employee.id, employee.last_name, employee.first_name, " +
-                    "employee.second_name, account_data.id_type_account" +
-                    "manager.id, manager.id_department\n"+
+            String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
+                    "employee.second_name, account_data.id_type_account," +
+                    "manager.id_manager, manager.id_department\n"+
                     "FROM employee, account_data, manager\n" +
-                    "WHERE employee.id = account_data.id AND manager.id_employee = employee.id;";
+                    "WHERE employee.id_employee = account_data.id_account_data AND manager.id_employee = employee.id_employee;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
@@ -103,11 +105,11 @@ public class DBRequests {
         JSONArray JSONArrayOfExperts = new JSONArray();
         try {
             statement = connection.createStatement();
-            String query = "SELECT employee.id, employee.last_name, employee.first_name, " +
-                    "employee.second_name, account_data.id_type_account" +
-                    "expert.id, expert.id_department\n"+
+            String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
+                    "employee.second_name, account_data.id_type_account," +
+                    "expert.id_expert, expert.id_department\n"+
                     "FROM employee, account_data, expert\n" +
-                    "WHERE employee.id = account_data.id AND expert.id_employee = employee.id;";
+                    "WHERE employee.id_employee = account_data.id_account_data AND expert.id_employee = employee.id_employee;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();

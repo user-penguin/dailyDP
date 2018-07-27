@@ -8,6 +8,6 @@ public class DBRequestsTest {
 
     @Test
     public void createDBConnect() {
-        assertEquals(new DBRequests().createDBConnect("admin", "1488"), true);
+        assertEquals(new DBRequests().createDBConnect("root", ""), true);
     }
 }
