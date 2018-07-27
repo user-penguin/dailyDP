@@ -20,10 +20,10 @@ public class TodoController {
     }		
 	
 	// Show all todos
-    @RequestMapping(value="/todos")
+    @RequestMapping(value="/employees")
     public String todoList(Model model) {	
-        model.addAttribute("todolist", repository.findAll());
-        return "todos";
+        //model.addAttribute("todolist", repository.findAll());
+        return "employees";
     }
 
     // Add new todo
