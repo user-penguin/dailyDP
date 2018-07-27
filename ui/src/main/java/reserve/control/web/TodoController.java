@@ -6,15 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import reserve.control.domain.Employee;
-import reserve.control.domain.EmployeeRepository;
-import reserve.control.domain.Todo;
-import reserve.control.domain.TodoRepository;
+import reserve.control.domain.*;
 
 @Controller
 public class TodoController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	private CandidateRepository candidateRepository;
 	
     @RequestMapping(value="/login")
     public String login() {	
@@ -36,10 +34,11 @@ public class TodoController {
     }     
     
     // Save new todo
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveEmp", method = RequestMethod.POST)
     public String save(Employee employee){
         employeeRepository.save(employee);
         return "redirect:employees";
     }
+
 
 }

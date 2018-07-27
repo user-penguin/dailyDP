@@ -21,8 +21,7 @@ public class ListManager {
                 manager = new Manager(obj.getInt("empId"),
                         obj.getString("firstName"), obj.getString("lastName"),
                         obj.getString("secondName"), obj.getInt("idTypeAccount"),
-                        obj.getInt("manId"), obj.getInt("departId"),
-                        obj.getString("departName"));
+                        obj.getInt("manId"), obj.getInt("departId"));
                 managers.add(manager);
             }
         }

@@ -22,8 +22,7 @@ public class ListExpert {
                 expert = new Expert(obj.getInt("empId"),
                         obj.getString("firstName"), obj.getString("lastName"),
                         obj.getString("secondName"), obj.getInt("idTypeAccount"),
-                        obj.getInt("expId"), obj.getInt("departId"),
-                        obj.getString("departName"));
+                        obj.getInt("expId"), obj.getInt("departId"));
                 experts.add(expert);
             }
         }

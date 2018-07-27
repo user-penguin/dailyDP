@@ -6,18 +6,16 @@ public class Manager extends Employee {
     //fields
     private int manId;
     private int departId;
-    private String departName;
 
     public Manager()
     {}
 
     public Manager(int empId, String firstName, String lastName, String secondName,
-                   int accountType, int manId, int departId, String departName)
+                   int accountType, int manId, int departId)
     {
         super(empId,firstName,lastName,secondName, accountType);
         this.manId = manId;
         this.departId = departId;
-        this.departName = departName;
     }
 
     public int getManId() {
