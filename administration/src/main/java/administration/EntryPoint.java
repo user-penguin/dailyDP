@@ -36,7 +36,7 @@ public class EntryPoint {
 
         container.put("listExp", listExpert);
 
-        AdmConsumer admConsumer = new AdmConsumer("con2adm");
+        AdmConsumer admConsumer = new AdmConsumer("con2adm", container);
         admConsumer.start();
     }
     //todo при инициализации заполняются все нужные листы
