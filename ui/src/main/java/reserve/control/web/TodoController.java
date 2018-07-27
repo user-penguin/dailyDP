@@ -6,13 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import reserve.control.domain.Employee;
+import reserve.control.domain.EmployeeRepository;
 import reserve.control.domain.Todo;
 import reserve.control.domain.TodoRepository;
 
 @Controller
 public class TodoController {
 	@Autowired
-	private TodoRepository repository;
+	private EmployeeRepository employeeRepository;
 	
     @RequestMapping(value="/login")
     public String login() {	
@@ -21,23 +23,23 @@ public class TodoController {
 	
 	// Show all todos
     @RequestMapping(value="/employees")
-    public String todoList(Model model) {	
-        //model.addAttribute("todolist", repository.findAll());
+    public String empList(Model model) {
+        model.addAttribute("empList", employeeRepository.findAll());
         return "employees";
     }
 
     // Add new todo
-    @RequestMapping(value = "/add")
-    public String addTodo(Model model){
-    	model.addAttribute("todo", new Todo());
-        return "addtodo";
+    @RequestMapping(value = "/addEmp")
+    public String addEmp(Model model){
+    	model.addAttribute("emp", new Employee());
+        return "addEmp";
     }     
     
     // Save new todo
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Todo todo){
-        repository.save(todo);
-        return "redirect:todos";
-    }    
+    public String save(Employee employee){
+        employeeRepository.save(employee);
+        return "redirect:employees";
+    }
 
 }

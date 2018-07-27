@@ -1,4 +1,4 @@
-package administration.Model;
+package reserve.control.domain;
 
 public class Employee {
     //fields

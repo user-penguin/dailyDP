@@ -37,7 +37,8 @@ public class DBRequests {
         JSONArray JSONArrayOfEmployee = new JSONArray();
         try {
             statement = connection.createStatement();
-            String query = "SELECT employee.id, employee.last_name, employee.first_name, employee.second_name, account_data.id_type_account\n" +
+            String query = "SELECT employee.id, employee.last_name, employee.first_name, " +
+                    "employee.second_name, account_data.id_type_account\n" +
                     "FROM employee, account_data\n" +
                     "WHERE employee.id = account_data.id;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);

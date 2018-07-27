@@ -60,4 +60,20 @@ public class ListEmployee {
         }
         return null;
     }
+
+    @Override
+    public String toString()
+    {
+        JSONArray array = new JSONArray();
+        for (Employee employee : employees){
+            JSONObject object = new JSONObject();
+            object.put("id", employee.getEmpId());
+            object.put("firstName", employee.getFirstName());
+            object.put("lastName", employee.getLastName());
+            object.put("secondName", employee.getSecondName());
+            object.put("idTypeAccount", employee.getAccountType());
+            array.put(object);
+        }
+        return array.toString();
+    }
 }

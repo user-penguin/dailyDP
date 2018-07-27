@@ -1,5 +1,7 @@
 package administration;
 
+import administration.Model.ListEmployee;
+import administration.dbTools.DBRequests;
 import kafka.utils.ShutdownableThread;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -35,9 +37,14 @@ public class AdmConsumer extends ShutdownableThread {
 
     private void handle(JSONObject message)
     {
+        DBRequests dbRequests = new DBRequests();
+        dbRequests.createDBConnect("root", "");
         switch (message.getString("command")){
             case "get emp list":{
-
+                ListEmployee listEmployee = new ListEmployee();
+                listEmployee.fillList(dbRequests.getArrOfEmployeeFromDB());
+                AdmProducer admProducer = new AdmProducer("con2adm", false);
+                admProducer.sendMessage(listEmployee.toString());
             }
             case "change emp info":{
 
