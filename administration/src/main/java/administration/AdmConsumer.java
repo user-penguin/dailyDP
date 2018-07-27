@@ -1,6 +1,8 @@
 package administration;
 
 import administration.Model.ListEmployee;
+import administration.Model.ListExpert;
+import administration.Model.ListManager;
 import administration.dbTools.DBRequests;
 import kafka.utils.ShutdownableThread;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -42,8 +44,7 @@ public class AdmConsumer extends ShutdownableThread {
         dbRequests.createDBConnect("root", "");
         switch (message.getString("command")){
             case "get emp list":{
-                ListEmployee listEmployee = new ListEmployee();
-                listEmployee.fillList(dbRequests.getArrOfEmployeeFromDB());
+                ListEmployee listEmployee = (ListEmployee) container.get("listEmp");
                 AdmProducer admProducer = new AdmProducer("con2adm", false);
                 admProducer.sendMessage(listEmployee.toString());
             }
@@ -51,13 +52,21 @@ public class AdmConsumer extends ShutdownableThread {
 
             }
             case "put emp":{
+                ListEmployee listEmployee = (ListEmployee) container.get("listEmp");
 
+                JSONObject employee = new JSONObject( message.getString("content"));
+
+                listEmployee.addEmployee(employee);
             }
             case "get man list":{
-
+                ListManager listManager = (ListManager) container.get("listMan");
+                AdmProducer admProducer = new AdmProducer("con2adm", false);
+                admProducer.sendMessage(listManager.toString());
             }
             case "get exp list":{
-
+                ListExpert listExpert = (ListExpert) container.get("listExp");
+                AdmProducer admProducer = new AdmProducer("con2adm", false);
+                admProducer.sendMessage(listExpert.toString());
             }
         }
     }

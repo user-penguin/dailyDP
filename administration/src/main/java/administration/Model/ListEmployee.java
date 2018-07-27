@@ -28,6 +28,28 @@ public class ListEmployee {
         }
     }
 
+    public void addEmployee(Employee employee)
+    {
+        for(Employee var : employees)
+        {
+            if (employee.getEmpId() == var.getEmpId())
+                return;
+        }
+        employees.add(employee);
+    }
+
+    public void addEmployee(JSONObject obj)
+    {
+        for(Employee var : employees)
+        {
+            if (obj.getInt("empId") == var.getEmpId())
+                return;
+        }
+        Employee employee = new Employee(obj.getInt("empId"),
+                obj.getString("firstName"), obj.getString("lastName"),
+                obj.getString("secondName"), obj.getInt("idTypeAccount"));
+        employees.add(employee);
+    }
 
     public ArrayList<Employee> getManagersList(){
         ArrayList<Employee> managers = new ArrayList<Employee>();

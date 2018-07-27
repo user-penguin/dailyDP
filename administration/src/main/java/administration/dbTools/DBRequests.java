@@ -11,7 +11,7 @@ public class DBRequests {
     private static Statement statement;
     private static ResultSet resultset;
     private static final String ipHost = "192.168.1.38";
-    private static final String url = "jdbc:mysql://localhost:8082/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String url = "jdbc:mysql://localhost:3306/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     public boolean createDBConnect(String user, String password) {
         try {
@@ -69,7 +69,7 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
-                    "employee.second_name, account_data.id_type_account" +
+                    "employee.second_name, account_data.id_type_account," +
                     "manager.id_manager, manager.id_department\n"+
                     "FROM employee, account_data, manager\n" +
                     "WHERE employee.id_employee = account_data.id_account_data AND manager.id_employee = employee.id_employee;";
@@ -104,7 +104,7 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
-                    "employee.second_name, account_data.id_type_account" +
+                    "employee.second_name, account_data.id_type_account," +
                     "expert.id_expert, expert.id_department\n"+
                     "FROM employee, account_data, expert\n" +
                     "WHERE employee.id_employee = account_data.id_account_data AND expert.id_employee = employee.id_employee;";
