@@ -11,7 +11,7 @@ public class DBRequests {
     private static Statement statement;
     private static ResultSet resultset;
     private static final String ipHost = "192.168.1.38";
-    private static final String url = "jdbc:mysql://192.168.1.38:3306/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String url = "jdbc:mysql://localhost:8082/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     public boolean createDBConnect(String user, String password) {
         try {
@@ -46,7 +46,7 @@ public class DBRequests {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 JSONObject data = new JSONObject();
-                data.put("id", Integer.parseInt(rs.getString("id")));
+                data.put("empId", Integer.parseInt(rs.getString("id_employee")));
                 data.put("lastName", rs.getString("last_name"));
                 data.put("firstName", rs.getString("first_name"));
                 data.put("secondName", rs.getString("second_name"));
@@ -78,12 +78,12 @@ public class DBRequests {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 JSONObject data = new JSONObject();
-                data.put("id", Integer.parseInt(rs.getString("id")));
+                data.put("empId", Integer.parseInt(rs.getString("id_employee")));
                 data.put("lastName", rs.getString("last_name"));
                 data.put("firstName", rs.getString("first_name"));
                 data.put("secondName", rs.getString("second_name"));
                 data.put("idTypeAccount", rs.getString("id_type_account"));
-                data.put("manId", rs.getInt("manager.id"));
+                data.put("manId", rs.getInt("id_manager"));
                 data.put("departId", rs.getInt("id_department"));
 
                 JSONArrayOfManagers.put(data);
@@ -113,12 +113,12 @@ public class DBRequests {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 JSONObject data = new JSONObject();
-                data.put("id", Integer.parseInt(rs.getString("id")));
+                data.put("empId", Integer.parseInt(rs.getString("id_employee")));
                 data.put("lastName", rs.getString("last_name"));
                 data.put("firstName", rs.getString("first_name"));
                 data.put("secondName", rs.getString("second_name"));
                 data.put("idTypeAccount", rs.getString("id_type_account"));
-                data.put("expId", rs.getInt("expert.id"));
+                data.put("expId", rs.getInt("id_expert"));
                 data.put("departId", rs.getInt("id_department"));
 
                 JSONArrayOfExperts.put(data);

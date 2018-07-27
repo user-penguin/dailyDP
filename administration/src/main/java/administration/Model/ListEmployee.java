@@ -20,7 +20,7 @@ public class ListEmployee {
             for (int i = 0; i < listEmployees.length(); i++) {
                 obj = (JSONObject) listEmployees.get(i);
 
-                employee = new Employee(obj.getInt("id"),
+                employee = new Employee(obj.getInt("empId"),
                         obj.getString("firstName"), obj.getString("lastName"),
                         obj.getString("secondName"), obj.getInt("idTypeAccount"));
                 employees.add(employee);
@@ -67,7 +67,7 @@ public class ListEmployee {
         JSONArray array = new JSONArray();
         for (Employee employee : employees){
             JSONObject object = new JSONObject();
-            object.put("id", employee.getEmpId());
+            object.put("empId", employee.getEmpId());
             object.put("firstName", employee.getFirstName());
             object.put("lastName", employee.getLastName());
             object.put("secondName", employee.getSecondName());

@@ -11,17 +11,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class AdmConsumer extends ShutdownableThread {
     private final KafkaConsumer<Integer, String> consumer;
     private final String topic;
+    private HashMap<String, Object> container;
 
     public static final String KAFKA_SERVER_URL = "localhost";
     public static final int KAFKA_SERVER_PORT = 9092;
     public static final String CLIENT_ID = "AdmConsumer";
 
-    public AdmConsumer(String topic) {
+    public AdmConsumer(String topic, HashMap<String, Object> container) {
         super("AdmConsumer", false);
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_SERVER_URL + ":" + KAFKA_SERVER_PORT);
@@ -34,6 +36,7 @@ public class AdmConsumer extends ShutdownableThread {
 
         consumer = new KafkaConsumer<>(props);
         this.topic = topic;
+        this.container = container;
     }
 
     private void handle(JSONObject message)
