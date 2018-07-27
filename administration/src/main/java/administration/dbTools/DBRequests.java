@@ -16,6 +16,8 @@ public class DBRequests {
     public boolean createDBConnect(String user, String password) {
         try {
             connection = DriverManager.getConnection(url, user, password);
+
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());

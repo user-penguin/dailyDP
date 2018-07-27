@@ -16,6 +16,7 @@ public class EntryPoint {
 //        AdmProducer producerThread = new AdmProducer(TOPIC, isAsync);
 //
 //        producerThread.sendMessage("___");
+
         DBRequests dbRequests = new DBRequests();
         dbRequests.createDBConnect("root", "");
 
