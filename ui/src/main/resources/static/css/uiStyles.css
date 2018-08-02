@@ -182,6 +182,10 @@ body {
 .main .view .viewHeader .functions .button.active {
     background-color: #54b9cd;
 }
+
+.main .view .viewHeader .functions .button.active.content {
+    background-color: #54b9cd;
+}
 .main .view .viewHeader .functions .button.inverz {
     background-color: inherit;
     border: 1px solid #AAA;
