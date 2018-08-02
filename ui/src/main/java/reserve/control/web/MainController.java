@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import reserve.control.domain.*;
 
 @Controller
-public class TodoController {
+public class MainController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	private CandidateRepository candidateRepository;
