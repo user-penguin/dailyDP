@@ -4,23 +4,21 @@ import administration.Model.ListEmployee;
 import administration.Model.ListExpert;
 import administration.Model.ListManager;
 import administration.dbTools.DBRequests;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EntryPoint {
+public class Container {
+    private Map<String, Object> container;
 
-    public static void main(String[] args) {
-//        boolean isAsync = false;
-//        AdmProducer producerThread = new AdmProducer(TOPIC, isAsync);
-//
-//        producerThread.sendMessage("___");
+    public Container() {
+        container = new HashMap<>();
+    }
 
+    public void init() {
         DBRequests dbRequests = new DBRequests();
         dbRequests.createDBConnect("root", "");
-
-        Map<String, Object> container = new HashMap<>();
 
         ListEmployee listEmployee = new ListEmployee();
         listEmployee.fillList(dbRequests.getArrOfEmployeeFromDB());
@@ -36,9 +34,11 @@ public class EntryPoint {
         listExpert.fillList(dbRequests.getArrOfExpertsFromDB());
 
         container.put("listExp", listExpert);
+    }
 
-        AdmConsumer admConsumer = new AdmConsumer("con2adm", container);
-        admConsumer.start();
+    public JSONObject getEmployeeList(){
+        ListEmployee listEmployee = (ListEmployee) container.get("listEmp");
+        return new JSONObject(listEmployee.toString());
     }
     //todo при инициализации заполняются все нужные листы
 }
