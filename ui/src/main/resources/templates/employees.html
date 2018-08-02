@@ -39,15 +39,12 @@
                     <div class="title">Менеджеры</div>
 
 
-                    <ul>
-                        <li class="checked"><i class="fa fa-check-square-o"></i><span>${employee.get("key")}</span>
-
-                        </li>
-                        <li><i class="fa fa-square-o"></i><span>Кокорина Александра Васильевна 14/12/1992 8(822)-344-55-26</span>
-
-                        </li>
-                        <li><i class="fa fa-square-o"></i><span>Зуев Максим Денисович 14/10/1996 8(922)-314-15-21</span>
-
+                    <ul th:each = "employee : ${employeeList}">
+                        <li><i class="fa fa-square-o"></i>
+                            <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
+                        <span th:text="${employee.get('first_name')} + ' '
+                        + ${employee.get('last_name')} + ' '
+                        +${employee.get('age')}"> </span>
                         </li>
                     </ul>
 
