@@ -1,5 +1,6 @@
 package reserve.control.web;
 
+import connect.RemoteConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import reserve.control.domain.*;
 
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 @Controller
@@ -25,10 +28,15 @@ public class TodoController {
 
 	// Show all todos
     @RequestMapping(value="/employees")
-    public String todoList(Model model) {
-        JSONArray jArr = new JSONArray("[{\"first_name\":\"dmitry\", \"last_name\":\"kobzev\", \"age\":\"18\"}," +
-                "{\"first_name\":\"egor\", \"last_name\":\"pravdin\", \"age\":\"17\"}," +
-                "{\"first_name\":\"alex\", \"last_name\":\"demchenko\", \"age\":\"17\"}]");
+    public String todoList(Model model) throws Exception {
+
+        Registry registry = LocateRegistry.getRegistry("localhost", 2020);
+        RemoteConnection service = (RemoteConnection) registry.lookup("connect/ConnectService");
+        JSONArray jArr = service.getEmployeeList();
+
+//        JSONArray jArr = new JSONArray("[{\"first_name\":\"dmitry\", \"last_name\":\"kobzev\", \"age\":\"18\"}," +
+//                "{\"first_name\":\"egor\", \"last_name\":\"pravdin\", \"age\":\"17\"}," +
+//                "{\"first_name\":\"alex\", \"last_name\":\"demchenko\", \"age\":\"17\"}]");
         ArrayList<JSONObject> jList = new ArrayList<>();
         for(int i = 0; i < jArr.length(); i++)
             jList.add(jArr.getJSONObject(i));

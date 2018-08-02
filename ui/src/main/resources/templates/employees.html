@@ -42,9 +42,9 @@
                     <ul th:each = "employee : ${employeeList}">
                         <li><i class="fa fa-square-o"></i>
                             <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
-                        <span th:text="${employee.get('first_name')} + ' '
-                        + ${employee.get('last_name')} + ' '
-                        +${employee.get('age')}"> </span>
+                        <span th:text="${employee.get('firstName')} + ' '
+                        + ${employee.get('lastName')} + ' '
+                        +${employee.get('secondName')}"> </span>
                         </li>
                     </ul>
 
