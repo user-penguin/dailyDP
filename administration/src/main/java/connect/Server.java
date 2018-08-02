@@ -6,6 +6,7 @@ import administration.Model.ListEmployee;
 import administration.Model.ListExpert;
 import administration.Model.ListManager;
 import administration.dbTools.DBRequests;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.rmi.Remote;
@@ -21,17 +22,17 @@ public class Server implements RemoteConnection {
     private Container container;
 
     @Override
-    public JSONObject getEmployeeList() {
+    public JSONArray getEmployeeList() {
         return container.getEmployeeList();
     }
 
     @Override
-    public JSONObject getExpertsList() {
+    public JSONArray getExpertsList() {
         return null;
     }
 
     @Override
-    public JSONObject getManagersList() {
+    public JSONArray getManagersList() {
         return null;
     }
 
@@ -53,6 +54,8 @@ public class Server implements RemoteConnection {
         System.out.print("Binding service...");
         registry.bind(BINDING_NAME, stub);
         System.out.println(" OK");
+
+        service.getEmployeeList();
 
         while (true) {
             Thread.sleep(Integer.MAX_VALUE);
