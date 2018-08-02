@@ -11,7 +11,7 @@ public class DBRequests {
     private static Statement statement;
     private static ResultSet resultset;
     private static final String ipHost = "192.168.1.38";
-    private static final String url = "jdbc:mysql://localhost:3306/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String url = "jdbc:mysql://localhost:8082/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
 
     public boolean createDBConnect(String user, String password) {
         try {

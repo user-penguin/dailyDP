@@ -36,14 +36,14 @@
             </div>
             <div class="content">
                 <div class="list">
-                    <div class="title">Менеджеры</div>
+                    <div class="title">Все</div>
 
 
                     <ul th:each = "employee : ${employeeList}">
                         <li><i class="fa fa-square-o"></i>
                             <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
-                        <span th:text="${employee.get('firstName')} + ' '
-                        + ${employee.get('lastName')} + ' '
+                        <span th:text="${employee.get('lastName')} + ' '
+                        + ${employee.get('firstName')} + ' '
                         +${employee.get('secondName')}"> </span>
                         </li>
                     </ul>

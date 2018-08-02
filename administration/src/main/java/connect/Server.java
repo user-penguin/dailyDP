@@ -1,29 +1,20 @@
 package connect;
 
-import administration.AdmConsumer;
-import administration.Container;
-import administration.Model.ListEmployee;
-import administration.Model.ListExpert;
-import administration.Model.ListManager;
-import administration.dbTools.DBRequests;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
+import administration.Container;
+import org.json.JSONArray;
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Server implements RemoteConnection {
-    public static final String BINDING_NAME = "connect/ConnectService";
+    public static final String BINDING_NAME = "sample/ConnectService";
     private Container container;
 
     @Override
-    public JSONArray getEmployeeList() {
-        return container.getEmployeeList();
+    public String getEmployeeList() {
+        return container.getEmployeeList().toString();
     }
 
     @Override
@@ -36,6 +27,11 @@ public class Server implements RemoteConnection {
         return null;
     }
 
+    @Override
+    public String test() {
+        return container.getEmployeeList().toString();
+    }
+
     public Server(){
         container = new Container();
         container.init();
@@ -45,7 +41,7 @@ public class Server implements RemoteConnection {
         //Container container = new Container();
 
         System.out.print("Starting registry...");
-        final Registry registry = LocateRegistry.createRegistry(8080);
+        final Registry registry = LocateRegistry.createRegistry(2021);
         System.out.println(" OK");
 
         final RemoteConnection service = new Server();
@@ -55,7 +51,7 @@ public class Server implements RemoteConnection {
         registry.bind(BINDING_NAME, stub);
         System.out.println(" OK");
 
-        service.getEmployeeList();
+        //service.getEmployeeList();
 
         while (true) {
             Thread.sleep(Integer.MAX_VALUE);

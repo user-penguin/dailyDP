@@ -7,7 +7,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface RemoteConnection extends Remote {
-    JSONArray getEmployeeList() throws RemoteException;
+    String getEmployeeList() throws RemoteException;
     JSONArray getManagersList() throws RemoteException;
     JSONArray getExpertsList() throws RemoteException;
+    String test() throws RemoteException;
 }

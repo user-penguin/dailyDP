@@ -37,8 +37,7 @@ public class Container {
 
     public JSONArray getEmployeeList(){
         ListEmployee listEmployee = (ListEmployee) container.get("listEmp");
-        JSONArray jsonObject = new JSONArray(listEmployee.toString());
-        return jsonObject;
+        return new JSONArray(listEmployee.toString());
     }
     //todo при инициализации заполняются все нужные листы
 }

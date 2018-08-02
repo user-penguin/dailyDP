@@ -8,8 +8,8 @@ import java.rmi.registry.Registry;
 
 public class Client {
     public static void main(String... args) throws Exception {
-        Registry registry = LocateRegistry.getRegistry("localhost", 8080);
-        RemoteConnection service = (RemoteConnection) registry.lookup("connect/ConnectService");
+        Registry registry = LocateRegistry.getRegistry("localhost", 2021);
+        RemoteConnection service = (RemoteConnection) registry.lookup("sample/ConnectService");
 
 //        Scanner in = new Scanner(System.in);
 //
@@ -28,7 +28,7 @@ public class Client {
 //
 //        } while (command.compareTo("exit") != 0);
 
-        JSONArray jsonArray = service.getEmployeeList();
-        System.out.println(jsonArray.get(0).toString());
+        JSONArray jAr = new JSONArray(service.getEmployeeList());
+        System.out.println(service.test());
     }
 }
