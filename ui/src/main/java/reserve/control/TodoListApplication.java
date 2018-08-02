@@ -17,7 +17,7 @@ public class TodoListApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TodoListApplication.class, args);
-		SampleConsumer consumerThread = new SampleConsumer("topic");
+		SampleConsumer consumerThread = new SampleConsumer("adm2con");
 		consumerThread.start();
 	}
 	
