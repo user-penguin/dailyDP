@@ -4,8 +4,7 @@ import administration.Model.ListEmployee;
 import administration.Model.ListExpert;
 import administration.Model.ListManager;
 import administration.dbTools.DBRequests;
-import org.json.JSONObject;
-
+import org.json.JSONArray;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,9 +35,10 @@ public class Container {
         container.put("listExp", listExpert);
     }
 
-    public JSONObject getEmployeeList(){
+    public JSONArray getEmployeeList(){
         ListEmployee listEmployee = (ListEmployee) container.get("listEmp");
-        return new JSONObject(listEmployee.toString());
+        JSONArray jsonObject = new JSONArray(listEmployee.toString());
+        return jsonObject;
     }
     //todo при инициализации заполняются все нужные листы
 }
