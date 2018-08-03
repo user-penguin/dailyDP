@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="mcontainer" id="popup1">
+        <form th:action="@{saveEmp}" action="#" class="mcontainer" id="popup1" method="post">
             <div class="messsage">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -68,7 +68,7 @@
                                     </label>
                                 </div>
                                 <div class="col-xs-10" id="lastNameContainer">
-                                    <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Фамилия" />
+                                    <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Фамилия" required/>
                                 </div>
                             </div>
 
@@ -79,7 +79,7 @@
                                     </label>
                                 </div>
                                 <div class="col-xs-10" id="firstNameContainer">
-                                    <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Полное имя" />
+                                    <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Полное имя" required/>
                                 </div>
                             </div>
 
@@ -90,7 +90,7 @@
                                     </label>
                                 </div>
                                 <div class="col-xs-10" id="secondNameContainer">
-                                    <input type="text" id="secondName" name="secondName" class="form-control" placeholder="Отчество" />
+                                    <input type="text" id="secondName" name="secondName" class="form-control" placeholder="Отчество" required/>
                                 </div>
                             </div>
                             <div class="row fieldRow">
@@ -129,13 +129,13 @@
                     </div>
                     <div class="functions">
                         <div class="button exit" onclick="javascript:PopUpHide()">Отмена</div>
-                        <div class="button accept">Добавить сотрудника</div>
+                        <input type="submit" class="button accept" id="addEmployee" value="Добавить"/>
                     </div>
                 </div>
 
 
             </div>
-        </div>
+        </form>
     </div>
 
 </div>
@@ -153,6 +153,11 @@
     function PopUpHide(){
         $("#popup1").hide();
     }
+</script>
+<script>
+    function EmptyAlarm(form) {
+
+
 </script>
 </body>
 </html>
