@@ -55,45 +55,84 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Create A New Person
+                            Добавить нового сотрудника
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="form">
+
                             <div class="row fieldRow">
                                 <div class="col-xs-2">
-                                    <label for="name" class="fieldLabel">
-                                        Name:
+                                    <label for="lastName" class="fieldLabel">
+                                        Фамилия:
                                     </label>
                                 </div>
-                                <div class="col-xs-10" id="nameContainer">
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" />
+                                <div class="col-xs-10" id="lastNameContainer">
+                                    <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Фамилия" />
+                                </div>
+                            </div>
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="firstName" class="fieldLabel">
+                                        Имя:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="firstNameContainer">
+                                    <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Полное имя" />
+                                </div>
+                            </div>
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="secondName" class="fieldLabel">
+                                        Отчество:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="secondNameContainer">
+                                    <input type="text" id="secondName" name="secondName" class="form-control" placeholder="Отчество" />
                                 </div>
                             </div>
                             <div class="row fieldRow">
                                 <div class="col-xs-2">
-                                    <label for="gender" class="fieldLabel">
-                                        Gender:
+                                    <label for="typeAccount" class="fieldLabel">
+                                        Тип учётной записи:
                                     </label>
                                 </div>
                                 <div class="col-xs-10">
-                                    <select id="gender" name="gender" class="form-control">
-                                        <option>
-                                            Male
+                                    <select id="typeAccount" name="typeAccount" class="form-control">
+                                        <option th:value="1">
+                                            Менеджер
                                         </option>
-                                        <option>
-                                            Female
+                                        <option th:value="2">
+                                            Эксперт
+                                        </option>
+                                        <option th:value="3">
+                                            Администратор
+                                        </option>
+                                        <option th:value="4">
+                                            Менеджер-эксперт
+                                        </option>
+                                        <option th:value="5">
+                                            Менеджер-администратор
+                                        </option>
+                                        <option th:value="6">
+                                            Эксперт-администратор
+                                        </option>
+                                        <option th:value="7">
+                                            Суперюзер
                                         </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="functions">
+                        <div class="button exit" onclick="javascript:PopUpHide()">Отмена</div>
+                        <div class="button accept">Добавить сотрудника</div>
+                    </div>
                 </div>
-                <div class="functions">
-                    <div class="button exit" onclick="javascript:PopUpHide()">Отмена</div>
-                    <div class="button accept">Добавить сотрудника</div>
-                </div>
+
 
             </div>
         </div>

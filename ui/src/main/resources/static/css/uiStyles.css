@@ -199,25 +199,38 @@ body {
     min-height:100%;
     background-color: rgba(0,0,0,0.5);
     overflow:hidden;
-    position:fixed;
-    top:0px;
+    position:inherit;
+    bottom:100%;
 }
 .main .mcontainer .messsage {
-    margin:40px auto 0px auto;
-    width: 50%;
+    margin:15% auto 0px auto;
+    width: 70%;
     height: 100%;
     position: center;
-    padding:10px;
-    background-color: #c5c5c5;
+    padding:10px 10px 20px 10px;
+    background-color: #545454;
     border-radius:5px;
     box-shadow: 0px 0px 10px #000;
 }
 
-.main .mcontainer .messsage .functions {
-    float: right;
+.main .mcontainer .messsage .panel.panel-primary .panel-heading {
+    background-color: #54b9cd;
 }
 
-.main .mcontainer .messsage .functions .button{
+.main .mcontainer .messsage .panel.panel-primary .panel-body .row.fieldRow {
+    margin-bottom: 10px;
+}
+
+.main .mcontainer .messsage .panel.panel-primary .panel-body .row.fieldRow .col-xs-2 .fieldLabel {
+    padding-top: 5px;
+}
+
+.main .mcontainer .messsage .functions {
+    float: right;
+    margin: 5px;
+}
+
+.main .mcontainer .messsage .panel.panel-primary .functions .button{
     float: right;
     height: 30px;
     line-height: 30px;
@@ -232,11 +245,11 @@ body {
     font-weight: 700;
 }
 
-.main .mcontainer .messsage .functions .button.exit{
+.main .mcontainer .messsage .panel.panel-primary .functions .button.exit{
     background-color: #cd2d2f;
 }
 
-.main .mcontainer .messsage .functions .button.accept{
+.main .mcontainer .messsage .panel.panel-primary .functions .button.accept{
     background-color: #22cd20;
 }
 
@@ -310,6 +323,8 @@ body {
 .main .view .content .list ul li .info .button.green {
     background-color: #85C157;
 }
+
+
 
 .clear {
     clear: both;
