@@ -1,6 +1,7 @@
 package administration.dbTools;
 
 
+import administration.Model.Employee;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,13 +11,15 @@ public class DBRequests {
     private static Connection connection = null;
     private static Statement statement;
     private static ResultSet resultset;
+    private  String User;
+    private  String Password;
     private static final String ipHost = "192.168.1.38";
     private static final String url = "jdbc:mysql://localhost:8082/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+
 
     public boolean createDBConnect(String user, String password) {
         try {
             connection = DriverManager.getConnection(url, user, password);
-
 
         } catch (SQLException ex) {
             // handle any errors
@@ -40,9 +43,8 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
-                    "employee.second_name, account_data.id_type_account\n" +
-                    "FROM employee, account_data\n" +
-                    "WHERE employee.id_employee = account_data.id_account_data;";
+                    "employee.second_name, employee.id_type_account\n" +
+                    "FROM employee\n;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
@@ -71,10 +73,10 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
-                    "employee.second_name, account_data.id_type_account," +
+                    "employee.second_name, employee.id_type_account," +
                     "manager.id_manager, manager.id_department\n"+
-                    "FROM employee, account_data, manager\n" +
-                    "WHERE employee.id_employee = account_data.id_account_data AND manager.id_employee = employee.id_employee;";
+                    "FROM employee, manager\n" +
+                    "WHERE manager.id_employee = employee.id_employee;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
@@ -106,10 +108,10 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "SELECT employee.id_employee, employee.last_name, employee.first_name, " +
-                    "employee.second_name, account_data.id_type_account," +
+                    "employee.second_name, employee.id_type_account," +
                     "expert.id_expert, expert.id_department\n"+
-                    "FROM employee, account_data, expert\n" +
-                    "WHERE employee.id_employee = account_data.id_account_data AND expert.id_employee = employee.id_employee;";
+                    "FROM employee, expert\n" +
+                    "WHERE expert.id_employee = employee.id_employee;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
@@ -134,6 +136,54 @@ public class DBRequests {
         }
 
         return JSONArrayOfExperts;
+    }
+
+    //todo обработать случай добавления сотрудника, который уже есть в списке
+    public boolean putEmployee(Employee person) {
+        boolean result = true;
+        try {
+            statement = connection.createStatement();
+            String query = "INSERT INTO \n" +
+                    "employee (last_name, first_name, second_name, id_type_account)\n" +
+                    "VALUES\n" +
+                    "(" + "'" + person.getLastName() + "','" + person.getFirstName() + "','" + person.getSecondName()
+                    + "'," + person.getAccountType() + ");";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+        return result;
+    }
+
+    public int getEmployeeId(Employee employee) {
+        int idEmployee = 0;
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT employee.id_employee\n" +
+                    "FROM employee\n" +
+                    "WHERE employee.last_name = '" + employee.getLastName() +
+                    "' AND employee.first_name = '" + employee.getFirstName() +
+                    "' AND employee.second_name = '" + employee.getSecondName() + "';";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                idEmployee = rs.getInt("id_employee");
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return idEmployee;
     }
 
 

@@ -1,10 +1,13 @@
 package administration;
 
+import administration.Model.Employee;
 import administration.Model.ListEmployee;
 import administration.Model.ListExpert;
 import administration.Model.ListManager;
 import administration.dbTools.DBRequests;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +36,25 @@ public class Container {
         listExpert.fillList(dbRequests.getArrOfExpertsFromDB());
 
         container.put("listExp", listExpert);
+    }
+
+    public void putEmployeeToContainer(Employee employee) {
+        ListEmployee listEmployee = (ListEmployee) container.get("listEmp");
+        listEmployee.addEmployee(employee);
+        container.put("listEmp", listEmployee);
+    }
+
+    public void putEmployee(String jsonEmpData) {
+        JSONObject empData = new JSONObject(jsonEmpData);
+        Employee employee = new Employee(empData.getString("firstName"), empData.getString("lastName"),
+                empData.getString("secondName"), empData.getInt("accountType"));
+
+        DBRequests dbRequests = new DBRequests();
+        dbRequests.createDBConnect("root", "");
+
+        dbRequests.putEmployee(employee);
+        employee.setEmpId(dbRequests.getEmployeeId(employee));
+        putEmployeeToContainer(employee);
     }
 
     public JSONArray getEmployeeList(){

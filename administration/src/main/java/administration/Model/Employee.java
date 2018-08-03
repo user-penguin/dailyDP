@@ -24,6 +24,14 @@ public class Employee {
         this.accountType = accountType;
     }
 
+    public Employee(String firstName, String lastName, String secondName, int accountType)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.secondName = secondName;
+        this.accountType = accountType;
+    }
+
     public int getAccountType() {
         return accountType;
     }

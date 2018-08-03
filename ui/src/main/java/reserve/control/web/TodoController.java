@@ -45,7 +45,17 @@ public class TodoController {
 
     @RequestMapping(value = "/saveEmp", method = RequestMethod.POST)
     public String saveEmp(@RequestParam("lastName") String lastName, @RequestParam("firstName") String firstName,
-                          @RequestParam("secondName") String secondName, @RequestParam("typeAccount") int typeAccount) {
+                          @RequestParam("secondName") String secondName, @RequestParam("accountType") int accountType)
+                            throws Exception{
+        JSONObject empData = new JSONObject();
+        empData.put("lastName", lastName);
+        empData.put("firstName", firstName);
+        empData.put("secondName", secondName);
+        empData.put("accountType", accountType);
+
+        Registry registry = LocateRegistry.getRegistry("localhost", 2021);
+        RemoteConnection service = (RemoteConnection) registry.lookup("sample/ConnectService");
+        service.putEmployee(empData.toString());
         return "redirect:employees";
     }
 
