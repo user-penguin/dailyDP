@@ -29,11 +29,7 @@
             <div class="viewHeader">
                 <div class="title">Сотрудники</div>
                 <div class="functions">
-                    <div class="button active" ><a href="javascript:PopUpShow()">Добавить сотрудника</a></div>
-
-                    <div class="button" id="popup1" ><a href="javascript:PopUpHide()">OFF</a></div>
-                    <div class="button">Закрыть</div>
-
+                    <div class="button active" onclick="javascript:PopUpShow()">Добавить сотрудника</div>
                     <div class="button inverz"><i class="fa fa-trash-o"></i></div>
                 </div>
             </div>
@@ -54,7 +50,55 @@
                 </div>
             </div>
         </div>
+        <div class="mcontainer" id="popup1">
+            <div class="messsage">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Create A New Person
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form">
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="name" class="fieldLabel">
+                                        Name:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="nameContainer">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" />
+                                </div>
+                            </div>
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="gender" class="fieldLabel">
+                                        Gender:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10">
+                                    <select id="gender" name="gender" class="form-control">
+                                        <option>
+                                            Male
+                                        </option>
+                                        <option>
+                                            Female
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="functions">
+                    <div class="button exit" onclick="javascript:PopUpHide()">Отмена</div>
+                    <div class="button accept">Добавить сотрудника</div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
 </div>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script>

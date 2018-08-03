@@ -97,7 +97,7 @@ body {
     font-size: 16px;
 }
 .main .nav .searchbox input {
-    display: inlin-block;
+    display: inline-block;
     width: 120px;
     background-color: White;
     color: Black;
@@ -179,14 +179,12 @@ body {
     color: White;
     font-weight: 700;
 }
+
 .main .view .viewHeader .functions .button.active {
-    background-color: #54b9cd;
+    background-color: #1392cd;
 }
 
-.main .view .viewHeader .functions .button.active.content {
-    background-color: #54b9cd;
-}
-.main .view .viewHeader .functions .button.inverz {
+.main .view .viewHeader .functions .button .inverz {
     background-color: inherit;
     border: 1px solid #AAA;
     width: 10px;
@@ -195,6 +193,54 @@ body {
     padding-left: 10px;
     padding-right: 16px;
 }
+
+.main .mcontainer {
+    width:100%;
+    min-height:100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:fixed;
+    top:0px;
+}
+.main .mcontainer .messsage {
+    margin:40px auto 0px auto;
+    width: 50%;
+    height: 100%;
+    position: center;
+    padding:10px;
+    background-color: #c5c5c5;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.main .mcontainer .messsage .functions {
+    float: right;
+}
+
+.main .mcontainer .messsage .functions .button{
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    background-color: #AAA;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin: 0px 5px;
+    padding: 0px 20px;
+    cursor: pointer;
+    color: White;
+    font-weight: 700;
+}
+
+.main .mcontainer .messsage .functions .button.exit{
+    background-color: #cd2d2f;
+}
+
+.main .mcontainer .messsage .functions .button.accept{
+    background-color: #22cd20;
+}
+
+
 .main .view .content {
     position: absolute;
     left: 0px;
