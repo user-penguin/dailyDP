@@ -1,5 +1,5 @@
 # dailyDP
->>^.^&lt;
+&rt^.^&lt;
 
 Changes 4.08.18
 1) слил таблицы employee и account_data, новый скрипт для базы administration скинул в telegram
