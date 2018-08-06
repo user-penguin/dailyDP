@@ -30,10 +30,11 @@ public class ListEmployee {
 
     public void addEmployee(Employee employee)
     {
+        //change body
         for(Employee var : employees)
         {
             if (employee.getEmpId() == var.getEmpId())
-                return;
+                employees.remove(var);
         }
         employees.add(employee);
     }
