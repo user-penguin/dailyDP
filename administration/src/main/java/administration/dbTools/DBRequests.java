@@ -2,6 +2,8 @@ package administration.dbTools;
 
 
 import administration.Model.Employee;
+import administration.Model.Expert;
+import administration.Model.Manager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -186,4 +188,145 @@ public class DBRequests {
         }
         return idEmployee;
     }
+
+    public boolean putManager(Manager person) {
+        boolean result = true;
+        try {
+            statement = connection.createStatement();
+            String query = "INSERT INTO \n" +
+                    "manager (id_department, id_employee)\n" +
+                    "VALUES\n" +
+                    "(" + person.getDepartId() + "," + person.getEmpId() + ");";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+        return result;
+    }
+
+    public int getManagerId(Manager manager) {
+        int idManager = 0;
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT manager.id_manager\n" +
+                    "FROM manager\n" +
+                    "WHERE manager.id_employee = " + manager.getEmpId() + ";";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                idManager = rs.getInt("id_manager");
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return idManager;
+    }
+
+    public boolean putExpert(Expert person) {
+        boolean result = true;
+        try {
+            statement = connection.createStatement();
+            String query = "INSERT INTO \n" +
+                    "expert (id_department, id_employee)\n" +
+                    "VALUES\n" +
+                    "(" + person.getDepartId() + "," + person.getEmpId() + ");";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+        return result;
+    }
+
+    public int getExpertId(Expert expert) {
+        int idExpert = 0;
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT expert.id_manager\n" +
+                    "FROM expert\n" +
+                    "WHERE expert.id_employee = " + expert.getEmpId() + ";";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                idExpert = rs.getInt("id_manager");
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return idExpert;
+    }
+
+    public void updateEmployee(Employee employee) {
+        try {
+            statement = connection.createStatement();
+            String query = "UPDATE employee\n" +
+                    "SET " + "last_name = " + "'" + employee.getLastName() + "'," +
+                    "first_name = " + "'" + employee.getFirstName() + "'," +
+                    "second_name = " + "'" + employee.getSecondName() + "'," +
+                    "id_type_account = " + employee.getAccountType() +
+                    "\nWHERE id_employee = " + employee.getEmpId() + ";";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
+
+    public void deleteManager(Employee employee) {
+        try {
+            statement = connection.createStatement();
+            String query = "DELETE FROM manager\n" +
+                    "\nWHERE id_employee = " + employee.getEmpId() + ";";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
+
+    public void deleteExpert(Employee employee) {
+        try {
+            statement = connection.createStatement();
+            String query = "DELETE FROM expert\n" +
+                    "\nWHERE id_employee = " + employee.getEmpId() + ";";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
+
 }

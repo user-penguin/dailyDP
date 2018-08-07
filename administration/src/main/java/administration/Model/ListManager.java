@@ -35,4 +35,28 @@ public class ListManager {
         }
         return null;
     }
+
+    public void addManager(Manager manager)
+    {
+        for(Manager var : managers)
+        {
+            if (manager.getManId() == var.getManId())
+                return;
+        }
+        managers.add(manager);
+    }
+
+    public void deleteManagerByManId(int manId) {
+        for (Manager var : managers) {
+            if (var.getManId() == manId)
+                managers.remove(var);
+        }
+    }
+
+    public void deleteManagerByEmpId(int empId) {
+        for (Manager var : managers) {
+            if (var.getEmpId() == empId)
+                managers.remove(var);
+        }
+    }
 }

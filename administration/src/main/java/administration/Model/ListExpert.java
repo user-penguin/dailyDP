@@ -36,4 +36,28 @@ public class ListExpert {
         }
         return null;
     }
+
+    public void addExpert(Expert expert)
+    {
+        for(Expert var : experts)
+        {
+            if (expert.getExId() == var.getExId())
+                return;
+        }
+        experts.add(expert);
+    }
+
+    public void deleteExpertByExpId(int expId) {
+        for (Expert var : experts) {
+            if (var.getExId() == expId)
+                experts.remove(var);
+        }
+    }
+
+    public void deleteExpertByEmpId(int empId) {
+        for (Expert var : experts) {
+            if (var.getEmpId() == empId)
+                experts.remove(var);
+        }
+    }
 }
