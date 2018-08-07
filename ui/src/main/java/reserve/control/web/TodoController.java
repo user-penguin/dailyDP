@@ -44,8 +44,8 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/saveEmp", method = RequestMethod.POST)
-    public String saveEmp(@RequestParam("lastName") String lastName, @RequestParam("firstName") String firstName,
-                          @RequestParam("secondName") String secondName, @RequestParam("accountType") int accountType)
+    public String saveEmp(@RequestParam("addLastName") String lastName, @RequestParam("addFirstName") String firstName,
+                          @RequestParam("addSecondName") String secondName, @RequestParam("addAccountType") int accountType)
                             throws Exception{
         JSONObject empData = new JSONObject();
         empData.put("lastName", lastName);
@@ -59,5 +59,20 @@ public class TodoController {
         return "redirect:employees";
     }
 
+    @RequestMapping(value = "changeEmp", method = RequestMethod.POST)
+    public String changeEmp(@RequestParam("chId") int id, @RequestParam("chLastName") String lastName,
+                            @RequestParam("chFirstName") String firstName, @RequestParam("chSecondName") String secondName,
+                            @RequestParam("chAccountType") int accountType)   throws Exception {
+        JSONObject empData = new JSONObject();
+        empData.put("lastName", lastName);
+        empData.put("firstName", firstName);
+        empData.put("secondName", secondName);
+        empData.put("accountType", accountType);
+        empData.put("empId", id);
 
+        Registry registry = LocateRegistry.getRegistry("localhost", 2021);
+        RemoteConnection service = (RemoteConnection) registry.lookup("sample/ConnectService");
+        service.putEmployee(empData.toString());
+        return "redirect:employees";
+    }
 }

@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBRequests {
     private static Connection connection = null;
@@ -328,23 +329,4 @@ public class DBRequests {
         }
     }
 
-
-//    todo вставка строки (или сделать ещё отдельный метод по вставке массива строк, типа пакетной для экономии тайма?)
-//    public void  putArrOfEmployeeToDB(JSONObject employee) {
-//        try {
-//            statement = connection.createStatement();
-//            String query = "INSERT INTO employee (jdata) VALUES ("
-//                    + employee.toString()
-//                    + ")";
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-////            preparedStatement.execute();
-//
-//        }
-//        catch (SQLException ex) {
-//            // handle any errors
-//            System.out.println("SQLException: " + ex.getMessage());
-//            System.out.println("SQLState: " + ex.getSQLState());
-//            System.out.println("VendorError: " + ex.getErrorCode());
-//        }
-//    }
 }

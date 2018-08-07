@@ -29,7 +29,7 @@
             <div class="viewHeader">
                 <div class="title">Сотрудники</div>
                 <div class="functions">
-                    <div class="button active" onclick="javascript:PopUpShow()">Добавить сотрудника</div>
+                    <div class="button active" onclick="javascript:AddPopUpShow()">Добавить сотрудника</div>
                     <div class="button inverz"><i class="fa fa-trash-o"></i></div>
                 </div>
             </div>
@@ -41,9 +41,16 @@
                     <ul th:each = "employee : ${employeeList}">
                         <li><i class="fa fa-square-o"></i>
                             <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
-                        <span th:text="${employee.get('lastName')} + ' '
-                        + ${employee.get('firstName')} + ' '
-                        +${employee.get('secondName')}"> </span>
+                            <span th:text="${employee.get('lastName')} + ' '
+                            + ${employee.get('firstName')} + ' '
+                            +${employee.get('secondName')}" >
+                            </span>
+                            <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
+                            <div class="info">
+                                <div class="button green" th:text="Изменить" th:id="${employee.get('empId')}" onclick="ChPopUpShow(this)">
+                                </div>
+                                <input type="hidden" th:value='${employee.toString()}' th:id="${employee.get('empId')}+'json'">
+                            </div>
                         </li>
                     </ul>
 
@@ -63,44 +70,44 @@
 
                             <div class="row fieldRow">
                                 <div class="col-xs-2">
-                                    <label for="lastName" class="fieldLabel">
+                                    <label for="addLastName" class="fieldLabel">
                                         Фамилия:
                                     </label>
                                 </div>
-                                <div class="col-xs-10" id="lastNameContainer">
-                                    <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Фамилия" required/>
+                                <div class="col-xs-10" id="addLastNameContainer">
+                                    <input type="text" id="addLastName" name="addLastName" class="form-control" placeholder="Фамилия" required/>
                                 </div>
                             </div>
 
                             <div class="row fieldRow">
                                 <div class="col-xs-2">
-                                    <label for="firstName" class="fieldLabel">
+                                    <label for="addFirstName" class="fieldLabel">
                                         Имя:
                                     </label>
                                 </div>
-                                <div class="col-xs-10" id="firstNameContainer">
-                                    <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Полное имя" required/>
+                                <div class="col-xs-10" id="addFirstNameContainer">
+                                    <input type="text" id="addFirstName" name="addFirstName" class="form-control" placeholder="Полное имя" required/>
                                 </div>
                             </div>
 
                             <div class="row fieldRow">
                                 <div class="col-xs-2">
-                                    <label for="secondName" class="fieldLabel">
+                                    <label for="addSecondName" class="fieldLabel">
                                         Отчество:
                                     </label>
                                 </div>
-                                <div class="col-xs-10" id="secondNameContainer">
-                                    <input type="text" id="secondName" name="secondName" class="form-control" placeholder="Отчество" required/>
+                                <div class="col-xs-10" id="addSecondNameContainer">
+                                    <input type="text" id="addSecondName" name="addSecondName" class="form-control" placeholder="Отчество" required/>
                                 </div>
                             </div>
                             <div class="row fieldRow">
                                 <div class="col-xs-2">
-                                    <label for="accountType" class="fieldLabel">
+                                    <label for="addAccountType" class="fieldLabel">
                                         Тип учётной записи:
                                     </label>
                                 </div>
                                 <div class="col-xs-10">
-                                    <select id="accountType" name="accountType" class="form-control">
+                                    <select id="addAccountType" name="addAccountType" class="form-control">
                                         <option th:value="1">
                                             Менеджер
                                         </option>
@@ -128,8 +135,98 @@
                         </div>
                     </div>
                     <div class="functions">
-                        <div class="button exit" onclick="javascript:PopUpHide()">Отмена</div>
+                        <div class="button exit" onclick="javascript:AddPopUpHide()">Отмена</div>
                         <input type="submit" class="button accept" id="addEmployee" value="Добавить"/>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+
+
+        <form th:action="@{changeEmp}" action="#" class="chcontainer" id="popup2" method="post">
+            <div class="messsage">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Изменение информации
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form">
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chLastName" class="fieldLabel">
+                                        Фамилия:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="chLastNameContainer">
+                                    <input type="text" id="chLastName" name="chLastName" class="form-control" placeholder="Фамилия" required/>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="chId" name="chId">
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chFirstName" class="fieldLabel">
+                                        Имя:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="chFirstNameContainer">
+                                    <input type="text" id="chFirstName" name="chFirstName" class="form-control" placeholder="Полное имя" required/>
+                                </div>
+                            </div>
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chSecondName" class="fieldLabel">
+                                        Отчество:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="chSecondNameContainer">
+                                    <input type="text" id="chSecondName" name="chSecondName" class="form-control" placeholder="Отчество" required/>
+                                </div>
+                            </div>
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chAccountType" class="fieldLabel">
+                                        Тип учётной записи:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10">
+                                    <select id="chAccountType" name="chAccountType" class="form-control">
+                                        <option th:value="1">
+                                            Менеджер
+                                        </option>
+                                        <option th:value="2">
+                                            Эксперт
+                                        </option>
+                                        <option th:value="3">
+                                            Администратор
+                                        </option>
+                                        <option th:value="4">
+                                            Менеджер-эксперт
+                                        </option>
+                                        <option th:value="5">
+                                            Менеджер-администратор
+                                        </option>
+                                        <option th:value="6">
+                                            Эксперт-администратор
+                                        </option>
+                                        <option th:value="7">
+                                            Суперюзер
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="functions">
+                        <div class="button exit" onclick="javascript:ChPopUpHide()">Отмена</div>
+                        <input type="submit" class="button accept" id="chEmployee" value="Изменить"/>
                     </div>
                 </div>
 
@@ -141,23 +238,35 @@
 </div>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script>
+    $()
     $(document).ready(function(){
         //Скрыть PopUp при загрузке страницы
-        PopUpHide();
+        AddPopUpHide();
+        ChPopUpHide();
     });
     //Функция отображения PopUp
-    function PopUpShow(){
+    function AddPopUpShow(){
         $("#popup1").show();
     }
     //Функция скрытия PopUp
-    function PopUpHide(){
+    function AddPopUpHide(){
         $("#popup1").hide();
     }
-</script>
-<script>
-    function EmptyAlarm(form) {
-
-
+    function ChPopUpShow(obj){
+        var textId = obj.id.toString();
+        var currId = textId + 'json';
+        var jsonEmp = document.getElementById(currId).value;
+        var jsonParsEmp = JSON.parse(jsonEmp);
+        document.getElementById("chFirstName").value = jsonParsEmp.firstName;
+        document.getElementById("chLastName").value = jsonParsEmp.lastName;
+        document.getElementById("chSecondName").value = jsonParsEmp.secondName;
+        document.getElementById("chId").value = obj.id;
+        $("#popup2").show();
+    }
+    //Функция скрытия PopUp
+    function ChPopUpHide(){
+        $("#popup2").hide();
+    }
 </script>
 </body>
 </html>
