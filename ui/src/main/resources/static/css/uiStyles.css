@@ -326,6 +326,71 @@ body {
 
 
 
+
+
+/*стили для контейнера с изменением информации*/
+.main .chcontainer {
+    width:100%;
+    min-height:100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:inherit;
+    bottom:100%;
+}
+.main .chcontainer .messsage {
+    margin:15% auto 0px auto;
+    width: 70%;
+    height: 100%;
+    position: center;
+    padding:10px 10px 20px 10px;
+    background-color: #545454;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.main .chcontainer .messsage .panel.panel-primary .panel-heading {
+    background-color: #54b9cd;
+}
+
+.main .chcontainer .messsage .panel.panel-primary .panel-body .row.fieldRow {
+    margin-bottom: 10px;
+}
+
+.main .chcontainer .messsage .panel.panel-primary .panel-body .row.fieldRow .col-xs-2 .fieldLabel {
+    padding-top: 5px;
+}
+
+.main .chcontainer .messsage .functions {
+    float: right;
+    margin: 5px;
+}
+
+.main .chcontainer .messsage .panel.panel-primary .functions .button{
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    background-color: #AAA;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin: 0px 5px;
+    padding: 0px 20px;
+    cursor: pointer;
+    color: White;
+    font-weight: 700;
+}
+
+.main .chcontainer .messsage .panel.panel-primary .functions .button.exit{
+    background-color: #cd2d2f;
+}
+
+.main .chcontainer .messsage .panel.panel-primary .functions .button.accept{
+    background-color: #22cd20;
+}
+
+
+
+
 .clear {
     clear: both;
 }
