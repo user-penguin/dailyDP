@@ -1,45 +1,17 @@
-package connect;
+package management.connect;
 
 
-import administration.Container;
+import management.Container;
 import org.json.JSONArray;
+
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class Server implements RemoteConnection {
-    public static final String BINDING_NAME = "adm/ConnectService";
+    public static final String BINDING_NAME = "mng/ConnectService";
     private Container container;
-
-    @Override
-    public String getEmployeeList() {
-        return container.getEmployeeList().toString();
-    }
-
-    @Override
-    public String getExpertsList() {
-        return container.getExpertList().toString();
-    }
-
-    @Override
-    public String getManagersList() { return container.getManagerList().toString(); }
-
-    @Override
-    public String test() {
-        return container.getEmployeeList().toString();
-    }
-
-    @Override
-    public void putEmployee(String jsonEmpData) {
-        container.putEmployee(jsonEmpData);
-    }
-
-    @Override
-    public void changeEmployee(String jsonEmpData) {
-        container.changeEmployee(jsonEmpData);
-    }
 
     public Server(){
         container = new Container();
@@ -47,8 +19,6 @@ public class Server implements RemoteConnection {
     }
 
     public static void main(String[] args) throws Exception{
-        //Container container = new Container();
-
         System.out.print("Starting registry...");
         final Registry registry = LocateRegistry.createRegistry(2021);
         System.out.println(" OK");

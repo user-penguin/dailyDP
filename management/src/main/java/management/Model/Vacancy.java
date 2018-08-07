@@ -19,6 +19,14 @@ public class Vacancy {
         this.statusId = statusId;
     }
 
+    public Vacancy(int manId, String title, String description, String requirements, int statusId) {
+        this.manId = manId;
+        this.title = title;
+        this.description = description;
+        this.requirements = requirements;
+        this.statusId = statusId;
+    }
+
     public int getVacancyId() {
         return vacancyId;
     }

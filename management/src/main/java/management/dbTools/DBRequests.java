@@ -1,6 +1,8 @@
 package management.dbTools;
 
 
+import management.Model.Candidate;
+import management.Model.Vacancy;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -57,9 +59,9 @@ public class DBRequests {
                 data.put("phone", rs.getString("phone"));
                 data.put("email", rs.getString("email"));
                 data.put("skills", rs.getString("skills"));
-                data.put("idStatus", rs.getInt("id_candidate_status"));
-                data.put("idResume", rs.getInt("resume_id"));
-                data.put("idVacancy", rs.getInt("id_vacancy"));
+                data.put("statusId", rs.getInt("id_candidate_status"));
+                data.put("resumeId", rs.getInt("resume_id"));
+                data.put("vacancyId", rs.getInt("id_vacancy"));
                 JSONArrayOfCandidates.put(data);
             }
         }
@@ -88,11 +90,11 @@ public class DBRequests {
             while (rs.next()) {
                 JSONObject data = new JSONObject();
                 data.put("id", Integer.parseInt(rs.getString("id")));
-                data.put("idManager", rs.getString("id_manager"));
-                data.put("name", rs.getString("name"));
+                data.put("manId", rs.getString("id_manager"));
+                data.put("title", rs.getString("name"));
                 data.put("description", rs.getString("desription"));
-                data.put("skills", rs.getString("skills"));
-                data.put("idStatus", rs.getInt("id_vacancy_status"));
+                data.put("requirements", rs.getString("skills"));
+                data.put("statusId", rs.getInt("id_vacancy_status"));
                 JSONArrayOfVacancies.put(data);
             }
         }
@@ -144,6 +146,104 @@ public class DBRequests {
         }
 
         return JSONArrayOfCandidatesOnVacancy;
+    }
+
+    public boolean putCandidate(Candidate person) {
+        boolean result = true;
+        try {
+            statement = connection.createStatement();
+            String query = "INSERT INTO \n" +
+                    "candidate (last_name, first_name, second_name, phone, email, skills," +
+                    "id_vacancy, id_candidate_status, resume_id)\n" +
+                    "VALUES\n" +
+                    "(" + "'" + person.getLastName() + "','" + person.getFirstName() + "','" + person.getSecondName()
+                    + "','" + person.getPhone() + "','"+ person.getEmail() +"','"+ person.getSkills()
+                    + "'," + person.getVacancyId() + "," + person.getStatusId() + "," + person.getResumeId() + ");";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+        return result;
+    }
+
+    public int getCandidateId(Candidate candidate) {
+        int id = 0;
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT candidate.id\n" +
+                    "FROM candidate\n" +
+                    "WHERE candidate.last_name = '" + candidate.getLastName() +
+                    "' AND candidate.first_name = '" + candidate.getFirstName() +
+                    "' AND candidate.second_name = '" + candidate.getSecondName() + "';";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return id;
+    }
+
+    public boolean putVacancy(Vacancy vacancy) {
+        boolean result = true;
+        try {
+            statement = connection.createStatement();
+            String query = "INSERT INTO \n" +
+                    "vacancy (id_manager, name, description, skills, id_vacancy_status)\n" +
+                    "VALUES\n" +
+                    "(" + vacancy.getManager() + ",'" + vacancy.getTitle() + "','" +
+                    vacancy.getDescription() + "','" + vacancy.getRequirements() + "'," +
+                    vacancy.getStatusId() + ");";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            return false;
+        }
+        return result;
+    }
+
+    public int getVacancyId(Vacancy vacancy) {
+        int id = 0;
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT vacancy.id\n" +
+                    "FROM candidate\n" +
+                    "WHERE vacancy.id_manager = " + vacancy.getManager() +
+                    " AND vacancy.name = '" + vacancy.getTitle() +
+                    "' AND vacancy.description = '" + vacancy.getDescription() +
+                    "' AND vacancy.skills = '" + vacancy.getRequirements() + "';";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return id;
     }
 
 

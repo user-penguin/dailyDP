@@ -60,4 +60,22 @@ public class ListExpert {
                 experts.remove(var);
         }
     }
+
+    @Override
+    public String toString()
+    {
+        JSONArray array = new JSONArray();
+        for (Expert expert : experts){
+            JSONObject object = new JSONObject();
+            object.put("empId", expert.getEmpId());
+            object.put("firstName", expert.getFirstName());
+            object.put("lastName", expert.getLastName());
+            object.put("secondName", expert.getSecondName());
+            object.put("idTypeAccount", expert.getAccountType());
+            object.put("manId", expert.getExId());
+            object.put("departId", expert.getDepartId());
+            array.put(object);
+        }
+        return array.toString();
+    }
 }

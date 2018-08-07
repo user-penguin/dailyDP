@@ -23,8 +23,11 @@ public class ListCandidates {
             for (int i = 0; i < listCandidates.length(); i++) {
                 obj = (JSONObject) listCandidates.get(i);
 
-                candidate = new Candidate(obj.getInt("id"), obj.getString("firstName"), obj.getString("lastName"), obj.getString("secondName"), obj.getString("phone"),
-                obj.getString("email"), obj.getString("skills"), obj.getInt("statusId"), obj.getInt("resumeId"));
+                candidate = new Candidate(obj.getInt("id"), obj.getString("firstName"),
+                        obj.getString("lastName"), obj.getString("secondName"),
+                        obj.getString("phone"), obj.getString("email"),
+                        obj.getString("skills"), obj.getInt("vacancyId"),
+                        obj.getInt("statusId"), obj.getInt("resumeId"));
                 candidates.add(candidate);
             }
         }
@@ -39,14 +42,13 @@ public class ListCandidates {
         return null;
     }
 
-    public boolean addCandidate(Candidate candidate)
+    public void addCandidate(Candidate candidate)
     {
         for (Candidate var: candidates) {
             if (var.getCanId() == candidate.getCanId())
-                return false;
+                candidates.remove(var);
         }
         candidates.add(candidate);
-        return true;
     }
 
 }

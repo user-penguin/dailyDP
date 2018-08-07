@@ -1,27 +1,30 @@
 package management.Model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class ListOnVacancy {
-    ArrayList<Candidate> candidates;
-    Vacancy vacancy;
+    private ArrayList<Candidate> candidates;
+    private int vacancyId;
 
     public ListOnVacancy() {
     }
 
-    public ListOnVacancy(Vacancy vacancy)
+    public ListOnVacancy(int vacancyId)
     {
-        this.vacancy = vacancy;
+        this.vacancyId = vacancyId;
     }
 
-    public ListOnVacancy(ArrayList<Candidate> candidates, Vacancy vacancy)
+    public ListOnVacancy(ArrayList<Candidate> candidates, int vacancyId)
     {
         this.candidates = candidates;
-        this.vacancy = vacancy;
+        this.vacancyId = vacancyId;
     }
 
-    public Vacancy getVacancy() {
-        return vacancy;
+    public int getVacancy() {
+        return vacancyId;
     }
 
 
@@ -30,7 +33,7 @@ public class ListOnVacancy {
         for (Candidate var: candidates) {
             if (var.getCanId() == candidate.getCanId())
                 //такое кандидат уже есть в списке
-                return;
+                candidates.remove(var);
         }
         candidates.add(candidate);
     }
@@ -51,6 +54,21 @@ public class ListOnVacancy {
                 if (var.getCanId() == reserve.getCanId()) ;
             }
             candidates.add(var);
+        }
+    }
+
+    public void fillList(JSONArray list) {
+        JSONObject obj;
+        Candidate candidate;
+        for (int i = 0; i < list.length(); i++) {
+            obj = (JSONObject) list.get(i);
+
+            candidate = new Candidate(obj.getInt("id"), obj.getString("firstName"),
+                    obj.getString("lastName"), obj.getString("secondName"),
+                    obj.getString("phone"), obj.getString("email"),
+                    obj.getString("skills"), obj.getInt("vacancyId"),
+                    obj.getInt("statusId"), obj.getInt("resumeId"));
+            candidates.add(candidate);
         }
     }
 }

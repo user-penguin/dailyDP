@@ -59,4 +59,22 @@ public class ListManager {
                 managers.remove(var);
         }
     }
+
+    @Override
+    public String toString()
+    {
+        JSONArray array = new JSONArray();
+        for (Manager manager : managers){
+            JSONObject object = new JSONObject();
+            object.put("empId", manager.getEmpId());
+            object.put("firstName", manager.getFirstName());
+            object.put("lastName", manager.getLastName());
+            object.put("secondName", manager.getSecondName());
+            object.put("idTypeAccount", manager.getAccountType());
+            object.put("manId", manager.getManId());
+            object.put("departId", manager.getDepartId());
+            array.put(object);
+        }
+        return array.toString();
+    }
 }

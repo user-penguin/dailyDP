@@ -146,5 +146,15 @@ public class Container {
         ListEmployee listEmployee = (ListEmployee) container.get("listEmp");
         return new JSONArray(listEmployee.toString());
     }
+
+    public JSONArray getManagerList() {
+        ListManager listManager = (ListManager) container.get("listMan");
+        return new JSONArray(listManager.toString());
+    }
+
+    public JSONArray getExpertList() {
+        ListExpert listExpert = (ListExpert) container.get("listExp");
+        return new JSONArray(listExpert.toString());
+    }
     //todo при инициализации заполняются все нужные листы
 }

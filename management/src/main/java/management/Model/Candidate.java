@@ -32,6 +32,22 @@ public class Candidate {
         this.resumeId = resumeId;
     }
 
+    public Candidate(String firstName, String lastName,
+                     String secondName, String phone, String email,
+                     String skills,  int vacancyId, int statusId,
+                     int resumeId)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.secondName = secondName;
+        this.phone = phone;
+        this.email = email;
+        this.skills = skills;
+        this.vacancyId = vacancyId;
+        this.statusId = statusId;
+        this.resumeId = resumeId;
+    }
+
     public int getCanId() {
         return canId;
     }
