@@ -258,14 +258,14 @@ public class DBRequests {
         int idExpert = 0;
         try {
             statement = connection.createStatement();
-            String query = "SELECT expert.id_manager\n" +
+            String query = "SELECT expert.id_expert\n" +
                     "FROM expert\n" +
                     "WHERE expert.id_employee = " + expert.getEmpId() + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                idExpert = rs.getInt("id_manager");
+                idExpert = rs.getInt("id_expert");
             }
         }
         catch (SQLException ex) {

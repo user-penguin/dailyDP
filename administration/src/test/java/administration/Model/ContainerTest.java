@@ -14,6 +14,8 @@ public class ContainerTest {
         Container container = new Container();
         container.init();
         JSONArray jAr = container.getEmployeeList();
+        Employee emp = new Employee(21, "pes", "opse", "psu", 1);
+        container.putEmployeeToContainer(emp);
         assertEquals(true, true);
     }
 }

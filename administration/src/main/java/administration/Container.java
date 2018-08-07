@@ -95,10 +95,10 @@ public class Container {
 
     private void correctDBs(Employee employee, DBRequests dbRequests){
         Manager manager = new Manager(employee.getEmpId(), employee.getFirstName(), employee.getLastName(),
-                employee.getSecondName(), employee.getAccountType(), 0);
+                employee.getSecondName(), employee.getAccountType(), 1);
 
         Expert expert = new Expert(employee.getEmpId(), employee.getFirstName(), employee.getLastName(),
-                employee.getSecondName(), employee.getAccountType(), 0);
+                employee.getSecondName(), employee.getAccountType(), 1);
 
         //добавляем нужное
         if(employee.getAccountType() == 1 || employee.getAccountType() == 4 ||

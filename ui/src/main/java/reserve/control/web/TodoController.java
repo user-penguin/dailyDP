@@ -33,7 +33,7 @@ public class TodoController {
     public String todoList(Model model) throws Exception {
 
         Registry registry = LocateRegistry.getRegistry("localhost", 2021);
-        RemoteConnection service = (RemoteConnection) registry.lookup("sample/ConnectService");
+        RemoteConnection service = (RemoteConnection) registry.lookup("adm/ConnectService");
         JSONArray jArrWithEmployees = new JSONArray(service.getEmployeeList());
 
         ArrayList<JSONObject> jList = new ArrayList<>();
@@ -54,7 +54,7 @@ public class TodoController {
         empData.put("accountType", accountType);
 
         Registry registry = LocateRegistry.getRegistry("localhost", 2021);
-        RemoteConnection service = (RemoteConnection) registry.lookup("sample/ConnectService");
+        RemoteConnection service = (RemoteConnection) registry.lookup("adm/ConnectService");
         service.putEmployee(empData.toString());
         return "redirect:employees";
     }
@@ -71,8 +71,8 @@ public class TodoController {
         empData.put("empId", id);
 
         Registry registry = LocateRegistry.getRegistry("localhost", 2021);
-        RemoteConnection service = (RemoteConnection) registry.lookup("sample/ConnectService");
-        service.putEmployee(empData.toString());
+        RemoteConnection service = (RemoteConnection) registry.lookup("adm/ConnectService");
+        service.changeEmployee(empData.toString());
         return "redirect:employees";
     }
 }

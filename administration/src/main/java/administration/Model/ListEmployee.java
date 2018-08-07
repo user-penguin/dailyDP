@@ -33,8 +33,10 @@ public class ListEmployee {
         //change body
         for(Employee var : employees)
         {
-            if (employee.getEmpId() == var.getEmpId())
+            if (employee.getEmpId() == var.getEmpId()) {
                 employees.remove(var);
+                break;
+            }
         }
         employees.add(employee);
     }
