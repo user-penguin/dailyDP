@@ -13,4 +13,5 @@ public interface RemoteConnection extends Remote {
     String test() throws RemoteException;
     void putEmployee(String jsonEmpData) throws RemoteException;
     void changeEmployee(String jsonEmpData) throws RemoteException;
+    String getUsers() throws RemoteException;
 }

@@ -329,4 +329,31 @@ public class DBRequests {
         }
     }
 
+    public JSONArray getUsers() {
+        JSONArray array = new JSONArray();
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT employee.login, employee.password, employee.id_type_account\n"+
+                    "FROM employee;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                JSONObject data = new JSONObject();
+                data.put("login", rs.getString("login"));
+                data.put("password", rs.getString("password"));
+                data.put("idTypeAccount", rs.getString("id_type_account"));
+                array.put(data);
+            }
+        }
+        catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+        return array;
+    }
+
 }

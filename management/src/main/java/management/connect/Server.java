@@ -39,6 +39,11 @@ public class Server implements RemoteConnection {
         container.init();
     }
 
+    public Server(int manId) {
+        container = new Container(manId);
+        container.init();
+    }
+
     public static void main(String[] args) throws Exception{
         System.out.print("Starting registry...");
         final Registry registry = LocateRegistry.createRegistry(2021);
@@ -50,8 +55,6 @@ public class Server implements RemoteConnection {
         System.out.print("Binding service...");
         registry.bind(BINDING_NAME, stub);
         System.out.println(" OK");
-
-        //service.getEmployeeList();
 
         while (true) {
             Thread.sleep(Integer.MAX_VALUE);

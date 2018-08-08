@@ -156,5 +156,13 @@ public class Container {
         ListExpert listExpert = (ListExpert) container.get("listExp");
         return new JSONArray(listExpert.toString());
     }
+
+    public String getUsers() {
+        DBRequests dbRequests = new DBRequests();
+        dbRequests.createDBConnect("root", "");
+
+        return dbRequests.getUsers().toString();
+
+    }
     //todo при инициализации заполняются все нужные листы
 }

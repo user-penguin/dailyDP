@@ -8,9 +8,14 @@ import java.rmi.RemoteException;
 
 public interface RemoteConnection extends Remote {
     String getEmployeeList() throws RemoteException;
-    JSONArray getManagersList() throws RemoteException;
-    JSONArray getExpertsList() throws RemoteException;
+    String getManagersList() throws RemoteException;
+    String getExpertsList() throws RemoteException;
     String test() throws RemoteException;
     void putEmployee(String jsonEmpData) throws RemoteException;
     void changeEmployee(String jsonEmpData) throws RemoteException;
+    String getUsers() throws RemoteException;
+    String getCandidateList() throws RemoteException;
+    String getVacancyList() throws RemoteException;
+    void putCandidate(String jsonData) throws RemoteException;
+    void putVacancy(String jsonData) throws RemoteException;
 }

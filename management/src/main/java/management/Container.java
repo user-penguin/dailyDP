@@ -17,7 +17,7 @@ public class Container {
         container = new HashMap<>();
         this.manId = manId;
     }
-
+    //
     public void init() {
         DBRequests dbRequests = new DBRequests();
         dbRequests.createDBConnect("root", "");

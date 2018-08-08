@@ -41,6 +41,9 @@ public class Server implements RemoteConnection {
         container.changeEmployee(jsonEmpData);
     }
 
+    @Override
+    public String getUsers() { return container.getUsers(); }
+
     public Server(){
         container = new Container();
         container.init();
