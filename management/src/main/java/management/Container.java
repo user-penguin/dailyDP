@@ -2,6 +2,7 @@ package management;
 
 import management.Model.*;
 import management.dbTools.DBRequests;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -38,8 +39,8 @@ public class Container {
         container.put("listCan", listCandidates);
     }
 
-    public void putCandidate(String jsonEmpData) {
-        JSONObject empData = new JSONObject(jsonEmpData);
+    public void putCandidate(String jsonData) {
+        JSONObject empData = new JSONObject(jsonData);
         Candidate candidate = new Candidate(empData.getString("firstName"),
                 empData.getString("lastName"), empData.getString("secondName"),
                 empData.getString("phone"), empData.getString("email"),
@@ -60,8 +61,8 @@ public class Container {
         container.put("listVac", listVacancies);
     }
 
-    public void putVacancy(String jsonEmpData) {
-        JSONObject empData = new JSONObject(jsonEmpData);
+    public void putVacancy(String jsonData) {
+        JSONObject empData = new JSONObject(jsonData);
         Vacancy vacancy = new Vacancy(empData.getInt("manId"), empData.getString("title"),
                 empData.getString("description"), empData.getString("requirements"),
                 empData.getInt("statusId"));
@@ -72,5 +73,15 @@ public class Container {
         dbRequests.putVacancy(vacancy);
         vacancy.setVacancyId(dbRequests.getVacancyId(vacancy));
         putVacancyToContainer(vacancy);
+    }
+
+    public String getCandidateList() {
+        ListCandidates listCandidates = (ListCandidates) container.get("listCan");
+        return listCandidates.toString();
+    }
+
+    public String getVacanciesList() {
+        ListVacancies listVacancies = (ListVacancies) container.get("listVac");
+        return listVacancies.toString();
     }
 }

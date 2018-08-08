@@ -51,4 +51,22 @@ public class ListCandidates {
         candidates.add(candidate);
     }
 
+    public String toString() {
+        JSONArray array = new JSONArray();
+        for (Candidate candidate : candidates){
+            JSONObject object = new JSONObject();
+            object.put("canId", candidate.getCanId());
+            object.put("firstName", candidate.getFirstName());
+            object.put("lastName", candidate.getLastName());
+            object.put("secondName", candidate.getSecondName());
+            object.put("phone", candidate.getPhone());
+            object.put("email", candidate.getEmail());
+            object.put("skills", candidate.getSkills());
+            object.put("vacancyId", candidate.getVacancyId());
+            object.put("statusId", candidate.getStatusId());
+            object.put("resumeId", candidate.getResumeId());
+            array.put(object);
+        }
+        return array.toString();
+    }
 }

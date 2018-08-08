@@ -5,6 +5,7 @@ import management.Container;
 import org.json.JSONArray;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -13,7 +14,27 @@ public class Server implements RemoteConnection {
     public static final String BINDING_NAME = "mng/ConnectService";
     private Container container;
 
-    public Server(){
+    @Override
+    public String getCandidateList() throws RemoteException {
+        return container.getCandidateList();
+    }
+
+    @Override
+    public String getVacancyList() throws RemoteException {
+        return container.getVacanciesList();
+    }
+
+    @Override
+    public void putCandidate(String jsonData) throws RemoteException {
+        container.putCandidate(jsonData);
+    }
+
+    @Override
+    public void putVacancy(String jsonData) throws RemoteException {
+        container.putVacancy(jsonData);
+    }
+
+    public Server() {
         container = new Container();
         container.init();
     }

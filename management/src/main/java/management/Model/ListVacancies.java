@@ -29,4 +29,19 @@ public class ListVacancies {
                 vacancies.remove(var);
         vacancies.add(vacancy);
     }
+
+    public String toString() {
+        JSONArray array = new JSONArray();
+        for (Vacancy vacancy : vacancies){
+            JSONObject object = new JSONObject();
+            object.put("vacancyId", vacancy.getVacancyId());
+            object.put("manId", vacancy.getManager());
+            object.put("title", vacancy.getTitle());
+            object.put("description", vacancy.getDescription());
+            object.put("requirements", vacancy.getRequirements());
+            object.put("statusId", vacancy.getStatusId());
+            array.put(object);
+        }
+        return array.toString();
+    }
 }
