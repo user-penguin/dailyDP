@@ -58,4 +58,13 @@ public class CandidatesOnVacancy {
         }
         candidateIds.add(canId);
     }
+
+    public void fillList(JSONArray list) {
+        JSONObject obj;
+        for (int i = 0; i < list.length(); i++) {
+            obj = (JSONObject) list.get(i);
+            vacancyId = obj.getInt("vacId");
+            candidateIds.add(obj.getInt("canId"));
+        }
+    }
 }

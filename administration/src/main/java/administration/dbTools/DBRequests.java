@@ -333,13 +333,14 @@ public class DBRequests {
         JSONArray array = new JSONArray();
         try {
             statement = connection.createStatement();
-            String query = "SELECT employee.login, employee.password, employee.id_type_account\n"+
+            String query = "SELECT employee.id_employee, employee.login, employee.password, employee.id_type_account\n"+
                     "FROM employee;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 JSONObject data = new JSONObject();
+                data.put("empId", rs.getString("id_employee"));
                 data.put("login", rs.getString("login"));
                 data.put("password", rs.getString("password"));
                 data.put("idTypeAccount", rs.getString("id_type_account"));

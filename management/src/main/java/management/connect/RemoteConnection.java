@@ -7,8 +7,9 @@ import java.rmi.RemoteException;
 
 public interface RemoteConnection extends Remote {
     //methods
-    String getCandidateList() throws RemoteException;
-    String getVacancyList() throws RemoteException;
+    String getCandidateList(int manId) throws RemoteException;
+    String getVacancyList(int manId) throws RemoteException;
     void putCandidate(String jsonData) throws RemoteException;
     void putVacancy(String jsonData) throws RemoteException;
+    String getManagersList() throws RemoteException;
 }

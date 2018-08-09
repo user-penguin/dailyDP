@@ -26,7 +26,7 @@ public class ListCandidates {
                 candidate = new Candidate(obj.getInt("id"), obj.getString("firstName"),
                         obj.getString("lastName"), obj.getString("secondName"),
                         obj.getString("phone"), obj.getString("email"),
-                        obj.getString("skills"), obj.getInt("vacancyId"),
+                        obj.getString("skills"), obj.getInt("managerId"),
                         obj.getInt("statusId"), obj.getInt("resumeId"));
                 candidates.add(candidate);
             }
@@ -62,7 +62,7 @@ public class ListCandidates {
             object.put("phone", candidate.getPhone());
             object.put("email", candidate.getEmail());
             object.put("skills", candidate.getSkills());
-            object.put("vacancyId", candidate.getVacancyId());
+            object.put("managerId", candidate.getManagerId());
             object.put("statusId", candidate.getStatusId());
             object.put("resumeId", candidate.getResumeId());
             array.put(object);

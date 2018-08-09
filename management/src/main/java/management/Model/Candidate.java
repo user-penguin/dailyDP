@@ -8,7 +8,7 @@ public class Candidate {
     private String phone;
     private String email;
     private String skills;
-    private int vacancyId;
+    private int managerId;
     private int statusId;
     private int resumeId;
 
@@ -17,7 +17,7 @@ public class Candidate {
 
     public Candidate(int canId, String firstName, String lastName,
                      String secondName, String phone, String email,
-                     String skills,  int vacancyId, int statusId,
+                     String skills,  int managerId, int statusId,
                      int resumeId)
     {
         this.canId = canId;
@@ -27,14 +27,14 @@ public class Candidate {
         this.phone = phone;
         this.email = email;
         this.skills = skills;
-        this.vacancyId = vacancyId;
+        this.managerId = managerId;
         this.statusId = statusId;
         this.resumeId = resumeId;
     }
 
     public Candidate(String firstName, String lastName,
                      String secondName, String phone, String email,
-                     String skills,  int vacancyId, int statusId,
+                     String skills,  int managerId, int statusId,
                      int resumeId)
     {
         this.firstName = firstName;
@@ -43,7 +43,7 @@ public class Candidate {
         this.phone = phone;
         this.email = email;
         this.skills = skills;
-        this.vacancyId = vacancyId;
+        this.managerId = managerId;
         this.statusId = statusId;
         this.resumeId = resumeId;
     }
@@ -120,7 +120,7 @@ public class Candidate {
         this.resumeId = resumeId;
     }
 
-    public int getVacancyId() { return vacancyId; }
+    public int getManagerId() { return managerId; }
 
-    public void setVacancyId(int vacancyId) { this.vacancyId = vacancyId; }
+    public void setManagerId(int managerId) { this.managerId = managerId; }
 }

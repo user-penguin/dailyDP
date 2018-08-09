@@ -30,6 +30,10 @@ public class ListVacancies {
         vacancies.add(vacancy);
     }
 
+    public ArrayList<Vacancy> getVacancies() {
+        return vacancies;
+    }
+
     public String toString() {
         JSONArray array = new JSONArray();
         for (Vacancy vacancy : vacancies){

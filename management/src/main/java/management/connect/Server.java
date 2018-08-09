@@ -4,6 +4,7 @@ package management.connect;
 import management.Container;
 import org.json.JSONArray;
 
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -15,13 +16,13 @@ public class Server implements RemoteConnection {
     private Container container;
 
     @Override
-    public String getCandidateList() throws RemoteException {
-        return container.getCandidateList();
+    public String getCandidateList(int manId) throws RemoteException {
+        return container.getCandidateList(manId);
     }
 
     @Override
-    public String getVacancyList() throws RemoteException {
-        return container.getVacanciesList();
+    public String getVacancyList(int manId) throws RemoteException {
+        return container.getVacanciesList(manId);
     }
 
     @Override
@@ -34,19 +35,19 @@ public class Server implements RemoteConnection {
         container.putVacancy(jsonData);
     }
 
-    public Server() {
-        container = new Container();
-        container.init();
+    @Override
+    public String getManagersList() throws RemoteException {
+        return null;
     }
 
-    public Server(int manId) {
-        container = new Container(manId);
+    public Server() throws RemoteException, NotBoundException {
+        container = new Container();
         container.init();
     }
 
     public static void main(String[] args) throws Exception{
         System.out.print("Starting registry...");
-        final Registry registry = LocateRegistry.createRegistry(2021);
+        final Registry registry = LocateRegistry.createRegistry(2121);
         System.out.println(" OK");
 
         final RemoteConnection service = new Server();
