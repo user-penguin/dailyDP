@@ -12,4 +12,6 @@ public interface RemoteConnection extends Remote {
     void putCandidate(String jsonData) throws RemoteException;
     void putVacancy(String jsonData) throws RemoteException;
     String getManagersList() throws RemoteException;
+    void putCandidateToVacancy(int vacId, int canId, int manId) throws RemoteException;
+    String getCOV(int manId, int vacId) throws RemoteException;
 }

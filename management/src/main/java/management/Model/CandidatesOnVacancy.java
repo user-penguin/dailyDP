@@ -51,12 +51,13 @@ public class CandidatesOnVacancy {
         return var1.toString();
     }
 
-    public void addCandidate(int canId) {
+    public boolean addCandidate(int canId) {
         for(int i = 0; i < candidateIds.size(); i++) {
             if (candidateIds.get(i) == canId)
-                return;
+                return false;
         }
         candidateIds.add(canId);
+        return true;
     }
 
     public void fillList(JSONArray list) {

@@ -2,8 +2,6 @@ package management.connect;
 
 
 import management.Container;
-import org.json.JSONArray;
-
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -38,6 +36,17 @@ public class Server implements RemoteConnection {
     @Override
     public String getManagersList() throws RemoteException {
         return null;
+    }
+
+    //todo вернуть ид_вакансии, ид_кандидата, ид_менеджера
+    @Override
+    public void putCandidateToVacancy(int vacId, int canId, int manId) throws RemoteException {
+        container.putCandidateToVacancy(canId, vacId, manId);
+    }
+
+    @Override
+    public String getCOV(int manId, int vacId) throws RemoteException {
+        return container.getCOV(manId, vacId);
     }
 
     public Server() throws RemoteException, NotBoundException {
