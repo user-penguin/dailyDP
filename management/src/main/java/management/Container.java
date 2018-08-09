@@ -126,10 +126,17 @@ public class Container {
         return listCOV.getCandidatesOnVacancy(vacId).toString();
     }
 
-    public void putCandidateToVacancy(int candidate, int vacancy) {
+    public void putCandidateToVacancy(int candidateId, int vacancyId, int manId) {
         DBRequests dbRequests = new DBRequests();
         dbRequests.createDBConnect("root", "");
 
+        HashMap<String, Object> map = container.get(manId);
+        ListCOV listCOV = (ListCOV) map.get("listCOV");
 
+        if (listCOV.addCandidateToVacancy(vacancyId, candidateId))
+            dbRequests.putCandidateToVacancy(vacancyId, candidateId);
+
+        map.put("listCOV", listCOV);
+        container.put(manId, map);
     }
 }

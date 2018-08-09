@@ -25,12 +25,13 @@ public class ListCOV {
         this.candidatesOnVacancies = candidatesOnVacancies;
     }
 
-    public void addCandidateToVacancy(int vacancyId, int candidateId) {
+    public boolean addCandidateToVacancy(int vacancyId, int candidateId) {
         for (CandidatesOnVacancy var: candidatesOnVacancies) {
             if (var.getVacancyId() == vacancyId) {
-                var.addCandidate(candidateId);
+                return var.addCandidate(candidateId);
             }
         }
+        return false;
     }
 
     public void fillList(ListVacancies listVacancies) {
