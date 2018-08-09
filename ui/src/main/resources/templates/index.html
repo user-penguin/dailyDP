@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrate</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" href="/css/mystyle.css" th:href="@{css/uiStyles.css}" />
+</head>
+<body>
+<body>
+    <div class="page">
+        <div class="pageHeader">
+            <div class="title">Reserve Control</div>
+            <div class="userPanel"><i class="fa fa-chevron-down"></i><span class="username">[[${#httpServletRequest.remoteUser}]]</span>
+                <img src="https://s.tcdn.co/093/31b/09331bef-582c-347a-b01f-6932bbb08f6a/10.png" width="40" height="40"/></div>
+        </div>
+        <div class="main">
+            <div class="nav">
+                <div class="menu">
+                    <div class="title">Navigation</div>
+                    <ul>
+                        <li><i class="fa fa-home"></i>Home</li>
+                        <li><i class="fa fa-signal"></i>Managemant Tools</li>
+                        <li class="active"><i class="fa fa-tasks"></i>Notifications</li>
+                        <li><i class="fa fa-envelope"></i>Messages</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="view">
+                <div class="content">
+                    <div class="list">
+                        <div class="title">Приветствие</div>
+                        <div class="infoText" th:text='"Тебя зовут" + ${username} + ". Твоя роль: " + ${role}'></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
