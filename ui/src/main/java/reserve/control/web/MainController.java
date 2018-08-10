@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import reserve.control.domain.*;
 import reserve.control.services.HtmlElement;
+import reserve.control.services.Tools;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -28,29 +29,10 @@ public class MainController {
 
 //	// Show all todos
     @RequestMapping(value="/employees")
-    public String todoList(Model model) throws Exception {
+    public String getEmployees(Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        ArrayList<HtmlElement> elements = new ArrayList<>();
-
-        elements.add(new HtmlElement());
-        elements.get(elements.size() - 1).transformToMain();
-        elements.get(elements.size() - 1).setActive(true);
-
-
-        for(int i = 0; i < user.getAuthorities().size(); i++) {
-            if(user.getAuthorities().get(i).getAuthority().compareTo("MANAGER") == 0) {
-                HtmlElement element = new HtmlElement();
-                element.transformToManagment();
-                elements.add(element);
-            }
-            else if(user.getAuthorities().get(i).getAuthority().compareTo("ADMIN") == 0) {
-                HtmlElement element = new HtmlElement();
-                element.transformToAdministrate();
-                elements.add(element);
-            }
-        }
-
+        ArrayList<HtmlElement> elements = Tools.autoFillElements(user);
 
         Registry registry = LocateRegistry.getRegistry("localhost", 2021);
         RemoteConnection service = (RemoteConnection) registry.lookup("adm/ConnectService");
@@ -68,33 +50,32 @@ public class MainController {
     }
 
     @RequestMapping(value="/index")
-    public String mainLoad(Model model) throws Exception {
+    public String getMain(Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        ArrayList<HtmlElement> elements = new ArrayList<>();
 
-        elements.add(new HtmlElement());
-        elements.get(elements.size() - 1).transformToMain();
-        elements.get(elements.size() - 1).setActive(true);
-
-
-        for(int i = 0; i < user.getAuthorities().size(); i++) {
-            if(user.getAuthorities().get(i).getAuthority().compareTo("MANAGER") == 0) {
-                HtmlElement element = new HtmlElement();
-                element.transformToManagment();
-                elements.add(element);
-            }
-            else if(user.getAuthorities().get(i).getAuthority().compareTo("ADMIN") == 0) {
-                HtmlElement element = new HtmlElement();
-                element.transformToAdministrate();
-                elements.add(element);
-            }
-        }
+        ArrayList<HtmlElement> elements = Tools.autoFillElements(user);
 
         model.addAttribute("username", user.getUsername().toString());
         model.addAttribute("activity", elements);
 
         return "index";
+    }
+
+    @RequestMapping(value="/candidates")
+    public String getCandidates(Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        ArrayList<HtmlElement> elements = Tools.autoFillElements(user);
+
+        Registry registry = LocateRegistry.getRegistry("localhost", 2121);
+        RemoteConnection service = (RemoteConnection) registry.lookup("mng/ConnectService");
+
+        model.addAttribute("username", user.getUsername().toString());
+        model.addAttribute("activity", elements);
+
+        return "candidates";
     }
 //
 //    @RequestMapping(value = "/saveEmp", method = RequestMethod.POST)

@@ -1,10 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
+<html html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Administrate</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" href="/css/mystyle.css" th:href="@{css/uiStyles.css}" />
 </head>
 <body>
+<div class="page">
+    <div class="pageHeader">
+        <div class="title">Reserve Control</div>
+        <div class="userPanel"><i class="fa fa-chevron-down"></i><span class="username">[[${#httpServletRequest.remoteUser}]]</span>
+            <img src="https://s.tcdn.co/093/31b/09331bef-582c-347a-b01f-6932bbb08f6a/10.png" width="40" height="40"/></div>
+    </div>
+    <div class="main">
+        <div class="nav">
+            <div class="menu">
+                <div class="title">Navigation</div>
+                <!--/*@thymesVar id="block" type="reserve.control.services.HtmlElement"*/-->
+                <!--/*@thymesVar id="activity" type="java.util.ArrayList"*/-->
+                <ul th:each = "block : ${activity}">
+                    <a th:href="${block.getLink()}">
+                        <li>
+                            <i th:class="${block.getClassType()}" th:text="${block.getName()}"></i></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <div class="view">
+            <div class="viewHeader">
+                <div class="title">Сотрудники</div>
+                <div class="functions">
+                    <div class="button active" onclick="javascript:AddPopUpShow()">Добавить сотрудника</div>
+                    <div class="button inverz"><i class="fa fa-trash-o"></i></div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="list">
+                    <div class="title">Все</div>
 
+
+                    <ul th:each = "employee : ${employeeList}">
+                        <li><i class="fa fa-square-o"></i>
+                            <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
+                            <span th:text="${employee.get('lastName')} + ' '
+                            + ${employee.get('firstName')} + ' '
+                            +${employee.get('secondName')}" >
+                            </span>
+                            <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
+                            <div class="info">
+                                <div class="button green" th:text="Изменить" th:id="${employee.get('empId')}" onclick="ChPopUpShow(this)">
+                                </div>
+                                <input type="hidden" th:value='${employee.toString()}' th:id="${employee.get('empId')}+'json'">
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <form th:action="@{saveEmp}" action="#" class="mcontainer" id="popup1" method="post">
+            <div class="messsage">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Добавить нового сотрудника
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form">
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="addLastName" class="fieldLabel">
+                                        Фамилия:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="addLastNameContainer">
+                                    <input type="text" id="addLastName" name="addLastName" class="form-control" placeholder="Фамилия" required/>
+                                </div>
+                            </div>
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="addFirstName" class="fieldLabel">
+                                        Имя:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="addFirstNameContainer">
+                                    <input type="text" id="addFirstName" name="addFirstName" class="form-control" placeholder="Полное имя" required/>
+                                </div>
+                            </div>
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="addSecondName" class="fieldLabel">
+                                        Отчество:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="addSecondNameContainer">
+                                    <input type="text" id="addSecondName" name="addSecondName" class="form-control" placeholder="Отчество" required/>
+                                </div>
+                            </div>
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="addAccountType" class="fieldLabel">
+                                        Тип учётной записи:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10">
+                                    <select id="addAccountType" name="addAccountType" class="form-control">
+                                        <option th:value="1">
+                                            Менеджер
+                                        </option>
+                                        <option th:value="2">
+                                            Эксперт
+                                        </option>
+                                        <option th:value="3">
+                                            Администратор
+                                        </option>
+                                        <option th:value="4">
+                                            Менеджер-эксперт
+                                        </option>
+                                        <option th:value="5">
+                                            Менеджер-администратор
+                                        </option>
+                                        <option th:value="6">
+                                            Эксперт-администратор
+                                        </option>
+                                        <option th:value="7">
+                                            Суперюзер
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="functions">
+                        <div class="button exit" onclick="javascript:AddPopUpHide()">Отмена</div>
+                        <input type="submit" class="button accept" id="addEmployee" value="Добавить"/>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+
+
+        <form th:action="@{changeEmp}" action="#" class="chcontainer" id="popup2" method="post">
+            <div class="messsage">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Изменение информации
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form">
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chLastName" class="fieldLabel">
+                                        Фамилия:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="chLastNameContainer">
+                                    <input type="text" id="chLastName" name="chLastName" class="form-control" placeholder="Фамилия" required/>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="chId" name="chId">
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chFirstName" class="fieldLabel">
+                                        Имя:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="chFirstNameContainer">
+                                    <input type="text" id="chFirstName" name="chFirstName" class="form-control" placeholder="Полное имя" required/>
+                                </div>
+                            </div>
+
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chSecondName" class="fieldLabel">
+                                        Отчество:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10" id="chSecondNameContainer">
+                                    <input type="text" id="chSecondName" name="chSecondName" class="form-control" placeholder="Отчество" required/>
+                                </div>
+                            </div>
+                            <div class="row fieldRow">
+                                <div class="col-xs-2">
+                                    <label for="chAccountType" class="fieldLabel">
+                                        Тип учётной записи:
+                                    </label>
+                                </div>
+                                <div class="col-xs-10">
+                                    <select id="chAccountType" name="chAccountType" class="form-control">
+                                        <option th:value="1">
+                                            Менеджер
+                                        </option>
+                                        <option th:value="2">
+                                            Эксперт
+                                        </option>
+                                        <option th:value="3">
+                                            Администратор
+                                        </option>
+                                        <option th:value="4">
+                                            Менеджер-эксперт
+                                        </option>
+                                        <option th:value="5">
+                                            Менеджер-администратор
+                                        </option>
+                                        <option th:value="6">
+                                            Эксперт-администратор
+                                        </option>
+                                        <option th:value="7">
+                                            Суперюзер
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="functions">
+                        <div class="button exit" onclick="javascript:ChPopUpHide()">Отмена</div>
+                        <input type="submit" class="button accept" id="chEmployee" value="Изменить"/>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+</div>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    $()
+    $(document).ready(function(){
+        //Скрыть PopUp при загрузке страницы
+        AddPopUpHide();
+        ChPopUpHide();
+    });
+    //Функция отображения PopUp
+    function AddPopUpShow(){
+        $("#popup1").show();
+    }
+    //Функция скрытия PopUp
+    function AddPopUpHide(){
+        $("#popup1").hide();
+    }
+    function ChPopUpShow(obj){
+        var textId = obj.id.toString();
+        var currId = textId + 'json';
+        var jsonEmp = document.getElementById(currId).value;
+        var jsonParsEmp = JSON.parse(jsonEmp);
+        document.getElementById("chFirstName").value = jsonParsEmp.firstName;
+        document.getElementById("chLastName").value = jsonParsEmp.lastName;
+        document.getElementById("chSecondName").value = jsonParsEmp.secondName;
+        document.getElementById("chId").value = obj.id;
+        $("#popup2").show();
+    }
+    //Функция скрытия PopUp
+    function ChPopUpHide(){
+        $("#popup2").hide();
+    }
+</script>
 </body>
 </html>
