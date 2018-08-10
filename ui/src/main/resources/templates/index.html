@@ -18,19 +18,22 @@
             <div class="nav">
                 <div class="menu">
                     <div class="title">Navigation</div>
-                    <ul>
-                        <li><i class="fa fa-home"></i>Home</li>
-                        <li><i class="fa fa-signal"></i>Managemant Tools</li>
-                        <li class="active"><i class="fa fa-tasks"></i>Notifications</li>
-                        <li><i class="fa fa-envelope"></i>Messages</li>
+                    <!--/*@thymesVar id="block" type="reserve.control.services.HtmlElement"*/-->
+                    <ul th:each = "block : ${activity}">
+                        <a th:href="${block.getLink()}">
+                            <li><i th:class="${block.getClassType()}" th:text="${block.getName()}"></i></li>
+                        </a>
+                        <!--<li class="active"><i class="fa fa-home"></i>Main</li>-->
+                        <!--<li><i class="fa fa-signal"></i>Admin Tools</li>-->
+                        <!--<li><i class="fa fa-tasks"></i>Managment Tools</li>-->
                     </ul>
                 </div>
             </div>
             <div class="view">
                 <div class="content">
-                    <div class="list">
+                    <div class="list" >
                         <div class="title">Приветствие</div>
-                        <div class="infoText" th:text='"Тебя зовут" + ${username} + ". Твоя роль: " + ${role}'></div>
+                        <div class="infoText" th:id="info" th:text="'You are logged with username ' + ${username.toString()}"></div>
                     </div>
                 </div>
             </div>

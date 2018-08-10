@@ -1,6 +1,7 @@
 package reserve.control.services;
 
 import reserve.control.domain.Role;
+import reserve.control.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +37,28 @@ public class Tools {
             result.add(Role.ADMIN);
         }
         return result;
+    }
+
+    public static ArrayList<HtmlElement> autoFillElements(User user) {
+        ArrayList<HtmlElement> elements = new ArrayList<>();
+
+        elements.add(new HtmlElement());
+        elements.get(elements.size() - 1).transformToMain();
+        elements.get(elements.size() - 1).setActive(true);
+
+        for(int i = 0; i < user.getAuthorities().size(); i++) {
+            if(user.getAuthorities().get(i).getAuthority().compareTo("MANAGER") == 0) {
+                HtmlElement element = new HtmlElement();
+                element.transformToManagment();
+                elements.add(element);
+            }
+            else if(user.getAuthorities().get(i).getAuthority().compareTo("ADMIN") == 0) {
+                HtmlElement element = new HtmlElement();
+                element.transformToAdministrate();
+                elements.add(element);
+            }
+        }
+
+        return elements;
     }
 }
