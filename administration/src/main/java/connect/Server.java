@@ -2,7 +2,10 @@ package connect;
 
 
 import administration.Container;
+import administration.Model.ListManager;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -43,6 +46,17 @@ public class Server implements RemoteConnection {
 
     @Override
     public String getUsers() { return container.getUsers(); }
+
+    @Override
+    public String getManagerById(int empId) throws RemoteException {
+        JSONArray listManager = container.getManagerList();
+        for (int i = 0; i < listManager.length(); i++) {
+            JSONObject obj = (JSONObject) listManager.get(i);
+            if (obj.getInt("empId") == empId)
+                return obj.toString();
+        }
+        return null;
+    }
 
     public Server(){
         container = new Container();

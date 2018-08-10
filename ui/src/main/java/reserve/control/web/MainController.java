@@ -86,4 +86,22 @@ public class MainController {
 //        service.changeEmployee(empData.toString());
 //        return "redirect:/admin/employees";
 //    }
+
+    @RequestMapping(value="/manager/vacancies")
+    public String vacancyList(Model model) throws Exception {
+
+        Registry registry = LocateRegistry.getRegistry("localhost", 2021);
+        RemoteConnection admService = (RemoteConnection) registry.lookup("adm/ConnectService");
+
+
+        JSONObject manager = new JSONObject( admService.getManagerById(empId));
+
+        Registry registry1 = LocateRegistry.getRegistry("localhost", 2121);
+        RemoteConnection mngService = (RemoteConnection) registry.lookup("mng/ConnectService");
+
+        JSONArray array = new JSONArray(mngService.getVacancyList(manager.getInt("manId")));
+        model.addAttribute("vacanciesList", array);
+
+        return "/admin/employees";
+    }
 }
