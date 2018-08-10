@@ -29,7 +29,7 @@
         </div>
         <div class="view">
             <div class="viewHeader">
-                <div class="title">Сотрудники</div>
+                <div class="title">Кандидаты</div>
                 <div class="functions">
                     <div class="button active" onclick="javascript:AddPopUpShow()">Добавить сотрудника</div>
                     <div class="button inverz"><i class="fa fa-trash-o"></i></div>
@@ -44,8 +44,8 @@
                     <ul th:each = "candidate : ${candidateList}">
                         <li><i class="fa fa-square-o"></i>
                             <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
-                            <span th:text="${candidate.get('firstName')} + ' '
-                            + ${candidate.get('phone')} + ' '
+                            <span th:text="${candidate.get('lastName')} + ' ' + ${candidate.get('firstName')} + ' '
+                            + ${candidate.get('phone')} + ' ' + ${candidate.get('skills')}
                             " >
                             </span>
                             <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->

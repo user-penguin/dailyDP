@@ -1,6 +1,6 @@
 package management;
 
-import management.connect.RemoteConnection;
+import connect.RemoteConnection;
 import org.junit.Test;
 
 import java.rmi.AccessException;

@@ -13,7 +13,7 @@ public class DBRequests {
     private static Statement statement;
     private static ResultSet resultset;
     private static final String ipHost = "192.168.1.38";
-    private static final String url = "jdbc:mysql://192.168.1.38:3306/administration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String url = "jdbc:mysql://localhost:8082/managment?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
 
     public boolean createDBConnect(String user, String password) {
         try {
@@ -40,18 +40,18 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "SELECT candidate.id, candidate.last_name, candidate.first_name, " +
-                    "candidate.second_name, candidate.phone" +
-                    "candidate.email, candidate.skills"+
-                    "candidate.id_candidate_status, candidate.resume_id"+
-                    "candidate.id_manager"+
-                    "FROM candidate\n" +
-                    "WHERE candidate.id_manager="+ manId +";";
+                    "candidate.second_name, candidate.phone, " +
+                    "candidate.email, candidate.skills, "+
+                    "candidate.id_candidate_status, candidate.resume_id, "+
+                    "candidate.id_manager "+
+                    "FROM candidate \n" +
+                    "WHERE candidate.id_manager = "+ manId +";";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 JSONObject data = new JSONObject();
-                data.put("id", Integer.parseInt(rs.getString("id")));
+                data.put("id", rs.getInt("id"));
                 data.put("lastName", rs.getString("last_name"));
                 data.put("firstName", rs.getString("first_name"));
                 data.put("secondName", rs.getString("second_name"));
@@ -60,7 +60,7 @@ public class DBRequests {
                 data.put("skills", rs.getString("skills"));
                 data.put("statusId", rs.getInt("id_candidate_status"));
                 data.put("resumeId", rs.getInt("resume_id"));
-                data.put("vacancyId", rs.getInt("id_vacancy"));
+                data.put("managerId", rs.getInt("id_manager"));
                 JSONArrayOfCandidates.put(data);
             }
         }
@@ -78,10 +78,10 @@ public class DBRequests {
         JSONArray JSONArrayOfVacancies = new JSONArray();
         try {
             statement = connection.createStatement();
-            String query = "SELECT vacancy.id, vacancy.id_manager"+
+            String query = "SELECT vacancy.id, vacancy.id_manager, "+
                     "vacancy.name, vacancy.description,"+
-                    "vacancy.skills, vacancy.id_vacancy_status"+
-                    "FROM vacancy\n" +
+                    "vacancy.skills, vacancy.id_vacancy_status "+
+                    "FROM vacancy \n" +
                     "WHERE vacancy.id_manager = " + manId + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
@@ -91,7 +91,7 @@ public class DBRequests {
                 data.put("id", Integer.parseInt(rs.getString("id")));
                 data.put("manId", rs.getString("id_manager"));
                 data.put("title", rs.getString("name"));
-                data.put("description", rs.getString("desription"));
+                data.put("description", rs.getString("description"));
                 data.put("requirements", rs.getString("skills"));
                 data.put("statusId", rs.getInt("id_vacancy_status"));
                 JSONArrayOfVacancies.put(data);
@@ -153,7 +153,7 @@ public class DBRequests {
             statement = connection.createStatement();
             String query = "INSERT INTO \n" +
                     "candidate (last_name, first_name, second_name, phone, email, skills," +
-                    "id_manager, id_candidate_status, resume_id)\n" +
+                    "id_manager, id_candidate_status, resume_id) \n" +
                     "VALUES\n" +
                     "(" + "'" + person.getLastName() + "','" + person.getFirstName() + "','" + person.getSecondName()
                     + "','" + person.getPhone() + "','"+ person.getEmail() +"','"+ person.getSkills()
@@ -175,7 +175,7 @@ public class DBRequests {
         int id = 0;
         try {
             statement = connection.createStatement();
-            String query = "SELECT candidate.id\n" +
+            String query = "SELECT candidate.id \n" +
                     "FROM candidate\n" +
                     "WHERE candidate.last_name = '" + candidate.getLastName() +
                     "' AND candidate.first_name = '" + candidate.getFirstName() +
@@ -201,7 +201,7 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "INSERT INTO \n" +
-                    "vacancy (id_manager, name, description, skills, id_vacancy_status)\n" +
+                    "vacancy (id_manager, name, description, skills, id_vacancy_status) \n" +
                     "VALUES\n" +
                     "(" + vacancy.getManager() + ",'" + vacancy.getTitle() + "','" +
                     vacancy.getDescription() + "','" + vacancy.getRequirements() + "'," +
@@ -223,8 +223,8 @@ public class DBRequests {
         int id = 0;
         try {
             statement = connection.createStatement();
-            String query = "SELECT vacancy.id\n" +
-                    "FROM candidate\n" +
+            String query = "SELECT vacancy.id \n" +
+                    "FROM candidate \n" +
                     "WHERE vacancy.id_manager = " + vacancy.getManager() +
                     " AND vacancy.name = '" + vacancy.getTitle() +
                     "' AND vacancy.description = '" + vacancy.getDescription() +
@@ -249,9 +249,9 @@ public class DBRequests {
         JSONArray cov = new JSONArray();
         try {
             statement = connection.createStatement();
-            String query = "SELECT id_record, id_vacancy, id_candidate\n" +
-                    "FROM candidate_to_vacancy\n" +
-                    "WHERE id_vacancy=" + vacancyId + ";";
+            String query = "SELECT id_record, id_vacancy, id_candidate \n" +
+                    "FROM candidate_to_vacancy \n" +
+                    "WHERE id_vacancy = " + vacancyId + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
@@ -278,8 +278,8 @@ public class DBRequests {
         try {
             statement = connection.createStatement();
             String query = "INSERT INTO \n" +
-                    "candidate_to_vacancy (id_vacancy, id_candidate)\n" +
-                    "VALUES\n" +
+                    "candidate_to_vacancy (id_vacancy, id_candidate) \n" +
+                    "VALUES \n" +
                     "(" + vacancyId + "," + candidateId + ");";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
