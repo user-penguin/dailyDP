@@ -1,7 +1,7 @@
 package management;
 
 import management.Model.*;
-import management.connect.RemoteConnection;
+import connect.RemoteConnection;
 import management.dbTools.DBRequests;
 import org.json.JSONArray;
 import org.json.JSONObject;

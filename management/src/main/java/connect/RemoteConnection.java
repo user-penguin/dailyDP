@@ -1,6 +1,4 @@
-package management.connect;
-
-import org.json.JSONArray;
+package connect;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
