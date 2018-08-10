@@ -1,6 +1,7 @@
 package administration.Model;
 
 import administration.Model.Employee;
+import org.json.JSONObject;
 
 public class Manager extends Employee {
     //fields
@@ -39,5 +40,18 @@ public class Manager extends Employee {
 
     public void setDepartId(int departId) {
         this.departId = departId;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject obj = new JSONObject();
+        obj.put("empId", this.getEmpId());
+        obj.put("firstName", this.getFirstName());
+        obj.put("lastName", this.getLastName());
+        obj.put("secondName", this.getSecondName());
+        obj.put("accountType", this.getAccountType());
+        obj.put("manId", this.getManId());
+        obj.put("departId", this.getDepartId());
+        return obj.toString();
     }
 }
