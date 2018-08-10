@@ -40,19 +40,16 @@
                     <div class="title">Все</div>
 
 
-                    <ul th:each = "employee : ${employeeList}">
+                    <!--/*@thymesVar id="employeeList" type="java.util.ArrayList"*/-->
+                    <ul th:each = "candidate : ${candidateList}">
                         <li><i class="fa fa-square-o"></i>
                             <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
-                            <span th:text="${employee.get('lastName')} + ' '
-                            + ${employee.get('firstName')} + ' '
-                            +${employee.get('secondName')}" >
+                            <span th:text="${candidate.get('firstName')} + ' '
+                            + ${candidate.get('phone')} + ' '
+                            " >
                             </span>
                             <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
-                            <div class="info">
-                                <div class="button green" th:text="Изменить" th:id="${employee.get('empId')}" onclick="ChPopUpShow(this)">
-                                </div>
-                                <input type="hidden" th:value='${employee.toString()}' th:id="${employee.get('empId')}+'json'">
-                            </div>
+
                         </li>
                     </ul>
 
