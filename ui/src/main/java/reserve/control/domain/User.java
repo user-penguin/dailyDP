@@ -19,6 +19,8 @@ public class User implements UserDetails {
     @Id
     private ObjectId id;
     @Indexed(unique = true)
+    private int employeeId;
+    private int managerId;
     private String username;
     private List<Role> authorities;
     private String password;
