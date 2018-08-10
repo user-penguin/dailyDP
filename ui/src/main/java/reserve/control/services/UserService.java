@@ -37,19 +37,22 @@ public class UserService implements UserDetailsService {
         RemoteConnection service = (RemoteConnection) registry.lookup("adm/ConnectService");
 
         JSONArray jArrWithUsers = new JSONArray(service.getUsers());
-        JSONArray jArrWithManagers = new JSONArray(service.getManagersList());
 
         for(int i = 0; i < jArrWithUsers.length(); i++) {
             JSONObject systemUser = jArrWithUsers.getJSONObject(i);
             if (!userDao.findByUsername(systemUser.getString("login")).isPresent()) {
-                int manId = 0;
+
                 int empId = Integer.parseInt(systemUser.getString("empId"));
-                for(int j = 0; j < jArrWithManagers.length(); j++) {
-                    JSONObject manager = jArrWithManagers.getJSONObject(j);
-                    if(manager.getInt("empId") == empId) {
-                        manId = manager.getInt("manId");
-                    }
+                int manId = 0;
+
+                String requestMan = service.getManagerById(empId);
+                JSONObject Man;
+                if(requestMan != null) {
+                    Man = new JSONObject(requestMan);
+                    manId = Man.getInt("manId");
                 }
+
+
                 userDao.save(User.builder()
                         .username(systemUser.getString("login"))
                         .authorities(Tools.getRoles(Integer.parseInt(systemUser.getString("idTypeAccount"))))
