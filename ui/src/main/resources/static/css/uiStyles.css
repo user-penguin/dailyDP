@@ -253,16 +253,23 @@ body {
     background-color: #22cd20;
 }
 
-
+/*блок информации*/
 .main .view .content {
-    position: absolute;
-    left: 0px;
+    position: center;
+    left: auto;
     top: 70px;
-    right: 0px;
+    right: auto;
     bottom: 0px;
     padding: 10px;
 }
+
+.main .view .content .list {
+    left: auto;
+    right: auto;
+}
 .main .view .content .list .title {
+    left: auto;
+    right: auto;
     width: 100%;
     padding: 10px;
     text-transform: uppercase;

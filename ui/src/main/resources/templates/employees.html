@@ -17,11 +17,13 @@
         <div class="nav">
             <div class="menu">
                 <div class="title">Navigation</div>
-                <ul>
-                    <li><i class="fa fa-home"></i>Home</li>
-                    <li><i class="fa fa-signal"></i>Managemant Tools</li>
-                    <li class="active"><i class="fa fa-tasks"></i>Notifications</li>
-                    <li><i class="fa fa-envelope"></i>Messages</li>
+                <!--/*@thymesVar id="block" type="reserve.control.services.HtmlElement"*/-->
+                <!--/*@thymesVar id="activity" type="java.util.ArrayList"*/-->
+                <ul th:each = "block : ${activity}">
+                    <a th:href="${block.getLink()}">
+                        <li>
+                        <i th:class="${block.getClassType()}" th:text="${block.getName()}"></i></li>
+                    </a>
                 </ul>
             </div>
         </div>

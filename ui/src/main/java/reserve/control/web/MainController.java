@@ -3,22 +3,20 @@ package reserve.control.web;
 import connect.RemoteConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.omg.IOP.ServiceContextHelper;
-import org.omg.IOP.ServiceContextHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import reserve.control.domain.*;
+import reserve.control.services.HtmlElement;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+
+import static java.util.stream.Collectors.joining;
 
 @Controller
 public class MainController {
@@ -29,30 +27,75 @@ public class MainController {
     }		
 
 //	// Show all todos
-//    @RequestMapping(value="/admin/employees")
-//    public String todoList(Model model) throws Exception {
-//
-//        Registry registry = LocateRegistry.getRegistry("localhost", 2021);
-//        RemoteConnection service = (RemoteConnection) registry.lookup("adm/ConnectService");
-//        JSONArray jArrWithEmployees = new JSONArray(service.getEmployeeList());
-//
-//        ArrayList<JSONObject> jList = new ArrayList<>();
-//        for(int i = 0; i < jArrWithEmployees.length(); i++)
-//            jList.add(jArrWithEmployees.getJSONObject(i));
-//        model.addAttribute("employeeList", jList);
-//        return "/admin/employees";
-//    }
-//
-//    @RequestMapping(value="/index")
-//    public String mainLoad(Model model) throws Exception {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) authentication.getPrincipal();
-//
-////        model.addAttribute("username", user.getUsername());
-////        model.addAttribute("role", user.getRole());
-//
-//        return "index";
-//    }
+    @RequestMapping(value="/employees")
+    public String todoList(Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ArrayList<HtmlElement> elements = new ArrayList<>();
+
+        elements.add(new HtmlElement());
+        elements.get(elements.size() - 1).transformToMain();
+        elements.get(elements.size() - 1).setActive(true);
+
+
+        for(int i = 0; i < user.getAuthorities().size(); i++) {
+            if(user.getAuthorities().get(i).getAuthority().compareTo("MANAGER") == 0) {
+                HtmlElement element = new HtmlElement();
+                element.transformToManagment();
+                elements.add(element);
+            }
+            else if(user.getAuthorities().get(i).getAuthority().compareTo("ADMIN") == 0) {
+                HtmlElement element = new HtmlElement();
+                element.transformToAdministrate();
+                elements.add(element);
+            }
+        }
+
+
+        Registry registry = LocateRegistry.getRegistry("localhost", 2021);
+        RemoteConnection service = (RemoteConnection) registry.lookup("adm/ConnectService");
+        JSONArray jArrWithEmployees = new JSONArray(service.getEmployeeList());
+
+        ArrayList<JSONObject> jList = new ArrayList<>();
+        for(int i = 0; i < jArrWithEmployees.length(); i++)
+            jList.add(jArrWithEmployees.getJSONObject(i));
+
+
+        model.addAttribute("employeeList", jList);
+        model.addAttribute("activity", elements);
+
+        return "/employees";
+    }
+
+    @RequestMapping(value="/index")
+    public String mainLoad(Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ArrayList<HtmlElement> elements = new ArrayList<>();
+
+        elements.add(new HtmlElement());
+        elements.get(elements.size() - 1).transformToMain();
+        elements.get(elements.size() - 1).setActive(true);
+
+
+        for(int i = 0; i < user.getAuthorities().size(); i++) {
+            if(user.getAuthorities().get(i).getAuthority().compareTo("MANAGER") == 0) {
+                HtmlElement element = new HtmlElement();
+                element.transformToManagment();
+                elements.add(element);
+            }
+            else if(user.getAuthorities().get(i).getAuthority().compareTo("ADMIN") == 0) {
+                HtmlElement element = new HtmlElement();
+                element.transformToAdministrate();
+                elements.add(element);
+            }
+        }
+
+        model.addAttribute("username", user.getUsername().toString());
+        model.addAttribute("activity", elements);
+
+        return "index";
+    }
 //
 //    @RequestMapping(value = "/saveEmp", method = RequestMethod.POST)
 //    public String saveEmp(@RequestParam("addLastName") String lastName, @RequestParam("addFirstName") String firstName,
