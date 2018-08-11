@@ -79,7 +79,7 @@ public class MainController {
         JSONArray listOfVacancies = new JSONArray(service.getVacancyList(manId));
 
         //результирующий список со всеми данными
-        JSONArray resultList = new JSONArray();
+        ArrayList<JSONObject> resultList = new ArrayList<>();
 
         for(int i = 0; i < listOfVacancies.length(); i++) {
             JSONObject vacancy = listOfVacancies.getJSONObject(i);
@@ -113,9 +113,10 @@ public class MainController {
             }
             COVToUI.put("candidates", candidatesOnVacansy);
 
-            resultList.put(COVToUI);
+            resultList.add(COVToUI);
         }
 
+        model.addAttribute("data", resultList);
         model.addAttribute("username", user.getUsername().toString());
         model.addAttribute("activity", elements);
 

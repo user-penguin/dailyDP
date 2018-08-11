@@ -29,19 +29,25 @@
         </div>
         <div class="view">
             <div class="viewHeader">
-                <div class="title">Кандидаты</div>
+                <div class="title" >Кандидаты</div>
                 <div class="functions">
                     <div class="button active" onclick="javascript:AddPopUpShow()">Добавить сотрудника</div>
                     <div class="button inverz"><i class="fa fa-trash-o"></i></div>
                 </div>
             </div>
             <div class="content">
-                <div class="list">
-                    <div class="title">Все</div>
+                <!--/*@thymesVar id="vacancy" type="org.json.JSONObject"*/-->
+                <!--/*@thymesVar id="data" type="java.util.ArrayList"*/-->
+
+                <div class="list" th:each="vacancy : ${data}">
+
+
+                    <!--/*@thymesVar id="getString" type="java.lang.String"*/-->
+                    <div class="title" th:text="${vacancy.get('name')}"></div>
 
 
                     <!--/*@thymesVar id="candidateList" type="java.util.ArrayList"*/-->
-                    <ul th:each = "candidate : ${candidateList}">
+                    <ul th:each = "candidate : ${vacancy.getJSONArray('candidates')}">
                         <li><i class="fa fa-square-o"></i>
                             <!--/*@thymesVar id="candidate" type="org.json.JSONObject"*/-->
                             <span th:text="${candidate.get('lastName')} + ' ' + ${candidate.get('firstName')} + ' '
@@ -52,6 +58,11 @@
                     </ul>
 
                 </div>
+
+
+
+
+
             </div>
         </div>
         <form th:action="@{saveEmp}" action="#" class="mcontainer" id="popup1" method="post">
