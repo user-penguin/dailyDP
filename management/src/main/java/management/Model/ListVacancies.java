@@ -38,7 +38,7 @@ public class ListVacancies {
         JSONArray array = new JSONArray();
         for (Vacancy vacancy : vacancies){
             JSONObject object = new JSONObject();
-            object.put("vacancyId", vacancy.getVacancyId());
+            object.put("vacancyId", vacancy.getVacancyId());  //integer
             object.put("manId", vacancy.getManager());
             object.put("title", vacancy.getTitle());
             object.put("description", vacancy.getDescription());

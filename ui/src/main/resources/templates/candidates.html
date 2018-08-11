@@ -40,16 +40,14 @@
                     <div class="title">Все</div>
 
 
-                    <!--/*@thymesVar id="employeeList" type="java.util.ArrayList"*/-->
+                    <!--/*@thymesVar id="candidateList" type="java.util.ArrayList"*/-->
                     <ul th:each = "candidate : ${candidateList}">
                         <li><i class="fa fa-square-o"></i>
-                            <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
+                            <!--/*@thymesVar id="candidate" type="org.json.JSONObject"*/-->
                             <span th:text="${candidate.get('lastName')} + ' ' + ${candidate.get('firstName')} + ' '
                             + ${candidate.get('phone')} + ' ' + ${candidate.get('skills')}
                             " >
                             </span>
-                            <!--/*@thymesVar id="employee" type="org.json.JSONObject"*/-->
-
                         </li>
                     </ul>
 

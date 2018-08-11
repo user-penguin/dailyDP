@@ -1,10 +1,14 @@
 package management.Model;
 
+import lombok.Data;
+import lombok.Setter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+@Data
+@Setter
 public class CandidatesOnVacancy {
     private int vacancyId;
     private ArrayList<Integer> candidateIds;
@@ -36,19 +40,18 @@ public class CandidatesOnVacancy {
 
     @Override
     public String toString() {
-        JSONArray var1 = new JSONArray();
-        JSONObject object = new JSONObject();
-        object.put("vacId", vacancyId);
-        var1.put(object);
+        JSONObject COV = new JSONObject();
+        COV.put("vacId", vacancyId);
 
-        JSONArray var2 = new JSONArray();
+        JSONObject canNumbers = new JSONObject();
+        JSONArray numbers = new JSONArray();
         for(int i = 0; i < candidateIds.size(); i++) {
-            JSONObject var3 = new JSONObject();
-            var3.put("canId", candidateIds.get(i));
-            var2.put(var3);
+            JSONObject number = new JSONObject();
+            number.put("canId", candidateIds.get(i));
+            numbers.put(number);
         }
-        var1.put(var2);
-        return var1.toString();
+        COV.put("canNums", numbers);
+        return COV.toString();
     }
 
     public boolean addCandidate(int canId) {
